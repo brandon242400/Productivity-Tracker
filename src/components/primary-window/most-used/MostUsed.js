@@ -21,10 +21,13 @@ export default class MostUsed extends Component {
   }
 
   addActivity = activity => {
-    let list = JSON.parse(JSON.stringify(this.state.activity_list));
+    let list = this.state.activity_list;
     list.push(activity);
     setActivityList(list);
     this.setState({ activity_list: list });
+    if (activity.timeSpendDoing[0].duration !== 0) {
+      this.props.addCompletedActivity(activity);
+    } 
   };
 
   removeActivity = activity => {
