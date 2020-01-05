@@ -12,21 +12,30 @@ const COMPLETED_LIST_SAVE_NAME = "productivity-tracker-completed-activity-list";
 export default class AppLogic extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { all_completed_activities: [] };
+    this.state = {
+      all_completed_activities: this.getSavedState(),
+      addCompletedActivity: this.addCompletedActivity,
+      removeCompletedActivity: this.removeCompletedActivity
+    };
   }
 
-  componentDidMount() {
+  getSavedState = () => {
     let list = getCompletedList(COMPLETED_LIST_SAVE_NAME);
-    if (list) {
-      this.setState({ all_completed_activities: list });
-    } else {
-      this.setState({ all_completed_activities: [] });
-    }
-  }
+    return list ? list : [];
+  };
 
   addCompletedActivity = activity => {
-    let list = JSON.parse(JSON.stringify(this.state.all_completed_activities));
+    let list = this.state.all_completed_activities;
     list.unshift(activity);
+    setCompletedList(list, COMPLETED_LIST_SAVE_NAME);
+    this.setState({ all_completed_activities: list });
+  };
+
+  removeCompletedActivity = activity => {
+    let list = this.state.all_completed_activities;
+    list = list.filter(act => {
+      return act.lastUsedTime !== activity.lastUsedTime;
+    });
     setCompletedList(list, COMPLETED_LIST_SAVE_NAME);
     this.setState({ all_completed_activities: list });
   };
@@ -34,7 +43,7 @@ export default class AppLogic extends React.Component {
   render() {
     return (
       <>
-        {console.log(this.state.all_completed_activities)}
+        {console.log("In AppLogic: ", this.state.all_completed_activities)}
         <ActivityProvider value={this.state}>
           <App addCompletedActivity={this.addCompletedActivity} />
         </ActivityProvider>

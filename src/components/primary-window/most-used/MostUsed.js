@@ -14,8 +14,10 @@ export default class MostUsed extends Component {
   componentDidMount() {
     if (getActivityList()) {
       let sortedList = getActivityList().sort(
-        (a, b) => a.timeSpendDoing.length - b.timeSpendDoing.length
+        (a, b) => a.timeSpentDoing.length - b.timeSpentDoing.length
       );
+      sortedList =
+        sortedList.length > 16 ? sortedList.slice(0, 16) : sortedList;
       this.setState({ activity_list: sortedList });
     }
   }
@@ -25,9 +27,9 @@ export default class MostUsed extends Component {
     list.push(activity);
     setActivityList(list);
     this.setState({ activity_list: list });
-    if (activity.timeSpendDoing[0].duration !== 0) {
+    if (activity.timeSpentDoing[0].duration !== 0) {
       this.props.addCompletedActivity(activity);
-    } 
+    }
   };
 
   removeActivity = activity => {

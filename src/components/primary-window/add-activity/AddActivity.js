@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddActivityDisplay from "./AddActivityDisplay";
 import AddActivityButton from "./AddActivityButton";
-import {} from "../../../ActivityListManager";
+import { getTodaysDate } from "../../../reused-functions/Functions";
 
 export default function AddActivity(props) {
   const [showDisplay, setShowDisplay] = useState(false);
@@ -16,7 +16,7 @@ export default function AddActivity(props) {
   };
 
   const createActivity = (title, description, rating, timeSpent) => {
-    props.addActivity(
+    props.addCompletedActivity(
       createActivityObject(title, description, rating, timeSpent)
     );
   };
@@ -34,24 +34,9 @@ export default function AddActivity(props) {
   );
 }
 
-//
-// Returns today's date in the format mm/dd/yyyy for the activity's lastUsed section
-const getTodaysDate = (today = new Date()) => {
-  let mm = today.getMonth() + 1;
-  let dd = today.getDate();
-  let yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = "0" + dd;
-  }
-  if (mm < 10) {
-    mm = "0" + mm;
-  }
-  return mm + "/" + dd + "/" + yyyy;
-};
-
 // Creates the activity object
-const createActivityObject = (title, description, rating, timeSpent) => {
-  if (timeSpent === "") timeSpent = 0;
+export const createActivityObject = (title, description, rating, timeSpent) => {
+  if (timeSpent === "") timeSpent = 30;
   if (rating === "") rating = 50;
   return {
     name: title,

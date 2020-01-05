@@ -1,27 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { getActivityList, setActivityList } from "../../ActivityListManager";
 import PrimaryWindowDisplay from "./PrimaryWindowDisplay";
-import MostUsedActivities from "./most-used/MostUsed";
+import HomePage from "./home/HomePage";
 import ActivityHistory from "./history/ActivityHistory";
 import Settings from "./settings/Settings";
 import Login from "./log-in/LogIn";
 import SignUp from "./sign-up/SignUp";
+import AddActivity from "./add-activity/AddActivity";
 import * as Routes from "../../constants/routes";
 
 // Main display window. Handles routing between pages and other functions that require a broad scope.
 
 export default class PrimaryWindow extends React.Component {
-  addActivity = activity => {
-    let list = getActivityList();
-    list.unshift(activity);
-    setActivityList(list);
-    if (activity.timeSpendDoing.length !== 0) {
-      this.props.addCompletedActivity(activity);
-    }
-    this.forceUpdate();
-  };
-
   render() {
     // localStorage.clear();
     return (
@@ -29,11 +19,10 @@ export default class PrimaryWindow extends React.Component {
         <Router>
           <Switch>
             <Route exact path={Routes.HOME}>
-              <PrimaryWindowDisplay
-                pageComponent={
-                  <MostUsedActivities addActivity={this.addActivity} />
-                }
+              <AddActivity
+                addCompletedActivity={this.props.addCompletedActivity}
               />
+              <PrimaryWindowDisplay pageComponent={<HomePage />} />
             </Route>
             <Route path={Routes.HISTORY}>
               <PrimaryWindowDisplay pageComponent={<ActivityHistory />} />

@@ -1,50 +1,52 @@
 import React from "react";
-import styled from "styled-components";
 import "./App.css";
 import AppDisplay from "./AppDisplay";
 import ActivityContext from "./context/ActivityContext";
-// import {
-//   Firebase,
-//   FirebaseContext
-// } from "./components/firebase/FirebaseContext";
+import { getTodaysScore } from "./reused-functions/Functions";
 
-// Logic and style portion of App.js along with AppLogic.js to help keep things from getting too cluttered. The UI portion is AppDisplay.js
-// Imports Firebase and distributes throughout app using Context.
+// Logic portion of App along with AppLogic.js to help keep things from getting too cluttered. The UI portion is AppDisplay.js
 
 export default class App extends React.Component {
-  static contextType = ActivityContext;
-
   constructor(props) {
     super(props);
     this.state = {
-      completed_activities: []
+      completed_activities: [],
+      todays_score: 0
     };
   }
 
   componentDidMount() {
-    this.setState({
-      completed_activities: this.context.all_completed_activities
-    });
+    if (this.compareWithContext())
+      this.setState({
+        completed_activities: this.context.all_completed_activities,
+        todays_score: getTodaysScore(this.context.all_completed_activities)
+      });
   }
 
-  getDivStyle = () => {
-    return styled.div`
-      text-align: center;
-      margin-top: 2vh;
-      border: 1px solid #333;
-    `;
+  componentDidUpdate() {
+    if (this.compareWithContext())
+      this.setState({
+        completed_activities: this.context.all_completed_activities,
+        todays_score: getTodaysScore(this.context.all_completed_activities)
+      });
+  }
+
+  // Returns true if the context's value is different from App's state, causing an update.
+  compareWithContext = () => {
+    let thisList = JSON.stringify(this.state.completed_activities);
+    let contextList = JSON.stringify(this.context.all_completed_activities);
+    if (thisList !== contextList) return true;
+    return false;
   };
 
   render() {
     return (
       <>
         {/* <FirebaseContext.Provider value={new Firebase()}> */}
-        <AppDisplay
-          getDivStyle={this.getDivStyle}
-          addCompletedActivity={this.props.addCompletedActivity}
-        />
+        <AppDisplay addCompletedActivity={this.props.addCompletedActivity} />
         {/* </FirebaseContext.Provider> */}
       </>
     );
   }
 }
+App.contextType = ActivityContext;

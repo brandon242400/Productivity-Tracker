@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const ActivityContext = React.createContext({});
+const ActivityContext = React.createContext();
 
 export const ActivityProvider = ActivityContext.Provider;
 export const ActivityConsumer = ActivityContext.Consumer;

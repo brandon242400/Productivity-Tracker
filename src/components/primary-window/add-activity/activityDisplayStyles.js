@@ -90,10 +90,10 @@ const StyledInput = withStyles({
 
 export const getTitleInput = (givenValue, doOnChange, doOnKeyDown = null) => (
   <FormControl variant="filled">
-    <StyledLabel htmlFor="component-filled-entry">Title</StyledLabel>
+    <StyledLabel htmlFor="component-filled-entry-title">Title</StyledLabel>
     <StyledInput
       autoFocus={true}
-      id="component-filled-entry"
+      id="component-filled-entry-title"
       autoComplete="false"
       value={givenValue}
       onChange={doOnChange}
@@ -161,7 +161,7 @@ export const getNumberInputs = (
         type="number"
         autoComplete="false"
         id="component-filled-entry-time"
-        placeholder="Hours"
+        placeholder="Minutes"
         value={givenValue2}
         onChange={doOnChange2}
         onKeyDown={doOnKeyDown || doOnKeyDown}

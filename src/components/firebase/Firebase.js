@@ -1,3 +1,4 @@
+/*
 import app from "firebase/app";
 // import auth from "firebase/auth";
 require("dotenv").config();
@@ -38,3 +39,4 @@ class Firebase {
 }
 
 export default Firebase;
+*/

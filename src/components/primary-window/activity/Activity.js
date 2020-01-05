@@ -1,12 +1,15 @@
 import React from "react";
 import ActivityDisplay from "./ActivityDisplay";
+import ActivityContext from "../../../context/ActivityContext";
 
 export default function Activity(props) {
+  const { removeCompletedActivity } = React.useContext(ActivityContext);
+
   return (
     <div>
       <ActivityDisplay
         activity={props.activity}
-        removeActivity={props.removeActivity}
+        removeActivity={removeCompletedActivity}
       />
     </div>
   );
