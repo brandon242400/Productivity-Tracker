@@ -1,13 +1,17 @@
 import React from "react";
 import PrimaryWindow from "./components/primary-window/PrimaryWindow";
+import Menu from "./components/menu/Menu";
 
 // UI portion of App.js
 
-export default function AppDisplay() {
+export default function AppDisplay(props) {
+  const Container = props.getDivStyle();
+
   return (
-    <div className="App">
+    <Container>
+      <Menu />
       <h1>Productivity Tracker</h1>
-      <PrimaryWindow />
-    </div>
+      <PrimaryWindow addCompletedActivity={props.addCompletedActivity} />
+    </Container>
   );
 }
