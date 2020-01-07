@@ -1,43 +1,65 @@
 import React from "react";
 import App from "./App";
-import {
-  getActivityList as getCompletedList,
-  setActivityList as setCompletedList
-} from "./ActivityListManager";
+import { getActivityList, setActivityList } from "./ActivityListManager";
+import { getTodaysDate } from "./reused-functions/Functions";
 import { ActivityProvider } from "./context/ActivityContext";
-
-const COMPLETED_LIST_SAVE_NAME = "productivity-tracker-completed-activity-list";
 
 // Keeps track of all the activities completed by the user.
 export default class AppLogic extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      all_completed_activities: this.getSavedState(),
+      all_completed_activities: [],
       addCompletedActivity: this.addCompletedActivity,
-      removeCompletedActivity: this.removeCompletedActivity
+      removeCompletedActivity: this.removeCompletedActivity,
+      addInstanceToActivity: this.addInstanceToActivity
     };
   }
 
-  getSavedState = () => {
-    let list = getCompletedList(COMPLETED_LIST_SAVE_NAME);
-    return list ? list : [];
-  };
+  componentDidMount() {
+    this.setState({
+      all_completed_activities: getActivityList() ? getActivityList() : []
+    });
+  }
 
   addCompletedActivity = activity => {
     let list = this.state.all_completed_activities;
     list.unshift(activity);
-    setCompletedList(list, COMPLETED_LIST_SAVE_NAME);
+    setActivityList(list);
     this.setState({ all_completed_activities: list });
   };
 
-  removeCompletedActivity = activity => {
-    let list = this.state.all_completed_activities;
-    list = list.filter(act => {
-      return act.lastUsedTime !== activity.lastUsedTime;
-    });
-    setCompletedList(list, COMPLETED_LIST_SAVE_NAME);
+  removeCompletedActivity = activityToRemove => {
+    let oldList = this.state.all_completed_activities;
+    let list = [];
+    for (let item of oldList) {
+      if (
+        item.name === activityToRemove.name &&
+        item.description === activityToRemove.description &&
+        item.timeSpentDoing === activityToRemove.timeSpentDoing &&
+        item.dateUsed === activityToRemove.dateUsed &&
+        item.timeUsed === activityToRemove.timeUsed &&
+        item.rating === activityToRemove.rating &&
+        item.ID === activityToRemove.ID
+      )
+        continue;
+      else list.push(item);
+    }
+    setActivityList(list);
     this.setState({ all_completed_activities: list });
+  };
+
+  addInstanceToActivity = (activityObject, duration) => {
+    let list = this.state.all_completed_activities;
+    let activity = JSON.parse(JSON.stringify(activityObject));
+    activity.timeSpentDoing = duration;
+    activity.dateUsed = getTodaysDate();
+    activity.timeUsed = new Date().getTime();
+
+    list.push(activity);
+
+    setActivityList(list);
+    this.setState(() => ({ all_completed_activities: list }));
   };
 
   render() {

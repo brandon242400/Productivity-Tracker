@@ -6,7 +6,6 @@ import ActivityHistory from "./history/ActivityHistory";
 import Settings from "./settings/Settings";
 import Login from "./log-in/LogIn";
 import SignUp from "./sign-up/SignUp";
-import AddActivity from "./add-activity/AddActivity";
 import * as Routes from "../../constants/routes";
 
 // Main display window. Handles routing between pages and other functions that require a broad scope.
@@ -19,9 +18,6 @@ export default class PrimaryWindow extends React.Component {
         <Router>
           <Switch>
             <Route exact path={Routes.HOME}>
-              <AddActivity
-                addCompletedActivity={this.props.addCompletedActivity}
-              />
               <PrimaryWindowDisplay pageComponent={<HomePage />} />
             </Route>
             <Route path={Routes.HISTORY}>

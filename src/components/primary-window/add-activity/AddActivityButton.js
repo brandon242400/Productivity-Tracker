@@ -29,12 +29,25 @@ const Container = styled.div`
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+    transition: all 0.35s;
+  }
+
+  .app-fab--absolute:hover {
+    bottom: 2.2rem;
+    right: 2.2rem;
+    box-shadow: 3px 3px 5px 2px #222;
   }
 
   @media (min-width: 1024px) {
     .app-fab--absolute {
       bottom: 3rem;
       right: 3rem;
+    }
+
+    .app-fab--absolute:hover {
+      bottom: 3.2rem;
+      right: 3.2rem;
+      // box-shadow: 3px 3px 5px 2px #222;
     }
   }
 `;

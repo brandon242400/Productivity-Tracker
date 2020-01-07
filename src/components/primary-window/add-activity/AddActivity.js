@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import AddActivityDisplay from "./AddActivityDisplay";
 import AddActivityButton from "./AddActivityButton";
 import { getTodaysDate } from "../../../reused-functions/Functions";
+import { getValidActivityID } from "../../../ActivityListManager";
+import ActivityContext from "../../../context/ActivityContext";
 
 export default function AddActivity(props) {
   const [showDisplay, setShowDisplay] = useState(false);
+  const { addCompletedActivity } = React.useContext(ActivityContext);
 
   const handleClick = e => {
     e.preventDefault();
@@ -16,7 +19,7 @@ export default function AddActivity(props) {
   };
 
   const createActivity = (title, description, rating, timeSpent) => {
-    props.addCompletedActivity(
+    addCompletedActivity(
       createActivityObject(title, description, rating, timeSpent)
     );
   };
@@ -34,21 +37,17 @@ export default function AddActivity(props) {
   );
 }
 
-// Creates the activity object
+// Creates a new activity object
 export const createActivityObject = (title, description, rating, timeSpent) => {
   if (timeSpent === "") timeSpent = 30;
   if (rating === "") rating = 50;
   return {
     name: title,
     description: description,
-    timeSpentDoing: [
-      {
-        date: getTodaysDate(),
-        duration: timeSpent
-      }
-    ],
-    lastUsedDate: getTodaysDate(),
-    lastUsedTime: new Date().getTime(),
-    rating: rating
+    timeSpentDoing: timeSpent,
+    dateUsed: getTodaysDate(),
+    timeUsed: new Date().getTime(),
+    rating: rating,
+    ID: getValidActivityID()
   };
 };

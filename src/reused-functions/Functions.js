@@ -14,15 +14,12 @@ export const getTodaysDate = (today = new Date()) => {
 
 // Returns the productivity score for the day.
 export const getTodaysScore = list => {
-  list = list.sort((a, b) => b.lastUsedTime - a.lastUsedTime);
+  list = list.sort((a, b) => b.timeUsed - a.timeUsed);
   let [date, score] = [getTodaysDate(), 0];
   for (let activity of list) {
-    if (activity.lastUsedDate === date)
-      for (let instance of activity.timeSpentDoing) {
-        if (instance.date === date)
-          score += (instance.duration / 60) * activity.rating;
-        else break;
-      }
+    if (activity.dateUsed === date)
+      score += (activity.timeSpentDoing / 60) * activity.rating;
+    else break;
   }
   return score;
 };
@@ -33,25 +30,8 @@ export const getTodaysActivities = list => {
   let date = getTodaysDate();
   let todaysActivities = [];
   for (let act of list) {
-    if (act.lastUsedDate === date) {
-      if (act.timeSpentDoing.length > 1) {
-        for (let instance of act.timeSpentDoing) {
-          if (instance.date === date)
-            todaysActivities.push({
-              name: act.name,
-              description: act.description,
-              timeSpentDoing: [
-                {
-                  date: instance.date,
-                  duration: instance.duration
-                }
-              ],
-              lastUsedDate: instance.date,
-              lastUsedTime: act.lastUsedTime,
-              rating: act.rating
-            });
-        }
-      } else todaysActivities.push(act);
+    if (act.dateUsed === date) {
+      todaysActivities.push(act);
     }
   }
   return todaysActivities;
