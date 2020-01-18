@@ -6,7 +6,8 @@ import {
   InputContainer,
   getTitleInput,
   getDescriptionInput,
-  getNumberInputs
+  getNumberInputs,
+  StyledButton
 } from "./activityDisplayStyles";
 
 export default class AddActivityDisplay extends React.Component {
@@ -67,13 +68,14 @@ export default class AddActivityDisplay extends React.Component {
                   ? this.setState({ timeSpent: e.target.value })
                   : this.setState({ timeSpent: 0 })
             )}
-            <Button
+            <StyledButton
               variant="contained"
               color="primary"
               onClick={this.handleEnter}
+              size="large"
             >
-              Enter
-            </Button>
+              Add Activity
+            </StyledButton>
           </InputContainer>
         </ClickAwayListener>
       </Container>

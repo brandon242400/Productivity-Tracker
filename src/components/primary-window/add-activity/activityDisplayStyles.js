@@ -6,7 +6,8 @@ import {
   withStyles,
   FormControl,
   InputLabel,
-  FilledInput
+  FilledInput,
+  Button
 } from "@material-ui/core";
 
 const darkenContainer = keyframes`
@@ -45,8 +46,8 @@ export const InputContainer = styled.div`
   align-items: center;
   width: 30vw;
   margin: 30vh auto;
-  padding: 25px;
-  border: 3px solid #555;
+  padding: 50px;
+  border: 2px solid #089;
   border-radius: 15px;
   background-color: #333;
   box-shadow: 5px 5px 3px 2px #111;
@@ -77,7 +78,7 @@ const StyledInput = withStyles({
   },
   underline: {
     "&:after": {
-      borderBottomColor: "rgb(255, 165, 0, 1) !important"
+      borderBottomColor: "#3cc !important"
     },
     "&:before": {
       borderBottomColor: "rgb(125,125,125,0.6)"
@@ -169,3 +170,17 @@ export const getNumberInputs = (
     </FormControl>
   </div>
 );
+
+export const StyledButton = withStyles({
+  root: {
+    fontFamily: "'Kulim Park', sans-serif",
+    fontWeight: "600",
+    backgroundColor: "#444",
+    color: "#29a",
+    transition: "all 0.25s",
+    "&:hover": {
+      backgroundColor: "#555",
+      color: "#3cc"
+    }
+  }
+})(Button);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import AddActivityDisplay from "./AddActivityDisplay";
 import AddActivityButton from "./AddActivityButton";
 import { getTodaysDate } from "../../../reused-functions/Functions";
@@ -6,7 +6,7 @@ import { getValidActivityID } from "../../../ActivityListManager";
 import ActivityContext from "../../../context/ActivityContext";
 
 export default function AddActivity(props) {
-  const [showDisplay, setShowDisplay] = useState(false);
+  const [showDisplay, setShowDisplay] = React.useState(false);
   const { addCompletedActivity } = React.useContext(ActivityContext);
 
   const handleClick = e => {
@@ -23,6 +23,14 @@ export default function AddActivity(props) {
       createActivityObject(title, description, rating, timeSpent)
     );
   };
+
+  React.useEffect(() => {
+    const handleEscapePress = e => {
+      if (e.keyCode === 27) handleClickAway();
+    };
+    document.addEventListener("keydown", handleEscapePress);
+    return () => document.removeEventListener("keydown", handleEscapePress);
+  });
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React from "react";
-import App from "./App";
+import AppDisplay from "./AppDisplay";
 import { getActivityList, setActivityList } from "./ActivityListManager";
 import { getTodaysDate } from "./reused-functions/Functions";
 import { ActivityProvider } from "./context/ActivityContext";
@@ -65,9 +65,9 @@ export default class AppLogic extends React.Component {
   render() {
     return (
       <>
-        {console.log("In AppLogic: ", this.state.all_completed_activities)}
+        {/* {console.log("In AppLogic: ", this.state.all_completed_activities)} */}
         <ActivityProvider value={this.state}>
-          <App addCompletedActivity={this.addCompletedActivity} />
+          <AppDisplay />
         </ActivityProvider>
       </>
     );

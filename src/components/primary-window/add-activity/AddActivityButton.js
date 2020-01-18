@@ -22,20 +22,29 @@ export default function AddActivityButton(props) {
 
 //
 //
-const FabButton = withStyles({})(Fab);
+const FabButton = withStyles({
+  root: {
+    backgroundColor: "#333",
+    color: "#3cc",
+    "&:hover": {
+      backgroundColor: "#444",
+      color: "#3ff"
+    }
+  }
+})(Fab);
 
 const Container = styled.div`
   .app-fab--absolute {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    transition: all 0.35s;
+    transition: all 0.2s;
   }
 
   .app-fab--absolute:hover {
     bottom: 2.2rem;
     right: 2.2rem;
-    box-shadow: 3px 3px 5px 2px #222;
+    box-shadow: 5px 5px 4px 2px #222;
   }
 
   @media (min-width: 1024px) {
@@ -45,8 +54,8 @@ const Container = styled.div`
     }
 
     .app-fab--absolute:hover {
-      bottom: 3.2rem;
-      right: 3.2rem;
+      bottom: 3.1rem;
+      right: 3.1rem;
       // box-shadow: 3px 3px 5px 2px #222;
     }
   }

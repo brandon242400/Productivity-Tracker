@@ -1,42 +1,26 @@
-/*
-import app from "firebase/app";
-// import auth from "firebase/auth";
+import firebase from "firebase/app";
+import "firebase/auth";
 require("dotenv").config();
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: "productivity-tracker-429ea.firebaseapp.com",
-  databaseURL: "https://productivity-tracker-429ea.firebaseio.com",
-  projectId: "productivity-tracker-429ea",
-  storageBucket: "productivity-tracker-429ea.appspot.com",
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-console.log(process.env.NODE_ENV);
+const fire = firebase.initializeApp(firebaseConfig);
 
-class Firebase {
-  constructor() {
-    app.initializeApp(firebaseConfig);
+// class Firebase {
+//   constructor() {
+//     firebase.initializeApp(firebaseConfig);
 
-    this.auth = app.auth();
-  }
+//     this.auth = firebase.auth();
+//   }
+// }
 
-  // AUTH API
-
-  doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
-
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
-
-  doSignOut = () => this.auth.signOut();
-
-  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
-
-  doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
-}
-
-export default Firebase;
-*/
+export default fire;

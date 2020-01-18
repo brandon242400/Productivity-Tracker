@@ -1,6 +1,6 @@
 import React from "react";
 import ActivityDisplay from "./ActivityDisplay";
-import CompletedActivityDisplay from "./CompletedActivityDisplay";
+import CompletedActivityDisplayCard from "./CompletedActivityDisplayCard";
 import ActivityContext from "../../../context/ActivityContext";
 
 export default function Activity(props) {
@@ -11,7 +11,7 @@ export default function Activity(props) {
   return (
     <>
       {props.completedActivity ? (
-        <CompletedActivityDisplay
+        <CompletedActivityDisplayCard
           activity={props.activity}
           removeActivity={removeCompletedActivity}
           addInstanceToActivity={addInstanceToActivity}

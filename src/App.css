@@ -3,15 +3,3 @@ body {
   font-family: "Kulim Park", sans-serif;
   /* height: 3000px; */
 }
-
-.closed-menu-container {
-  font-family: "Kilum Park", sans-serif;
-  position: fixed;
-  top: 5vh;
-  left: -70px;
-  border: 3px solid orange;
-  border-radius: 100px;
-  width: fit-content;
-  padding: 0 20px 0 80px;
-  transition: all 0.5s;
-}

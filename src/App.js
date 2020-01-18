@@ -1,52 +1,47 @@
 import React from "react";
 import "./App.css";
-import AppDisplay from "./AppDisplay";
-import ActivityContext from "./context/ActivityContext";
-import { getTodaysScore } from "./reused-functions/Functions";
+import AppLogic from "./AppLogic";
+import fire from "./components/firebase/Firebase";
+import { FirebaseProvider } from "./context/FirebaseContext";
+import { UserProvider } from "./context/UserContext";
 
-// Logic portion of App along with AppLogic.js to help keep things from getting too cluttered. The UI portion is AppDisplay.js
+// Logic portion of App along with AppLogic.js. Handles some Firebase related tasks.
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      completed_activities: [],
-      todays_score: 0
+      user: null
     };
+    this.authListener = this.authListener.bind(this);
   }
 
   componentDidMount() {
-    if (this.compareWithContext())
-      this.setState({
-        completed_activities: this.context.all_completed_activities,
-        todays_score: getTodaysScore(this.context.all_completed_activities)
-      });
+    this.authListener();
   }
 
-  componentDidUpdate() {
-    if (this.compareWithContext())
-      this.setState({
-        completed_activities: this.context.all_completed_activities,
-        todays_score: getTodaysScore(this.context.all_completed_activities)
-      });
+  authListener() {
+    fire.auth().onAuthStateChanged(user => {
+      // console.log(user);
+      if (user) {
+        this.setState({ user });
+        // localStorage.setItem('user', user.uid);
+      } else {
+        this.setState({ user: null });
+        // localStorage.removeItem('user');
+      }
+    });
   }
-
-  // Returns true if the context's value is different from App's state, causing an update.
-  compareWithContext = () => {
-    let thisList = JSON.stringify(this.state.completed_activities);
-    let contextList = JSON.stringify(this.context.all_completed_activities);
-    if (thisList !== contextList) return true;
-    return false;
-  };
 
   render() {
     return (
       <>
-        {/* <FirebaseContext.Provider value={new Firebase()}> */}
-        <AppDisplay addCompletedActivity={this.props.addCompletedActivity} />
-        {/* </FirebaseContext.Provider> */}
+        <FirebaseProvider value={fire}>
+          <UserProvider value={JSON.parse(JSON.stringify(this.state.user))}>
+            <AppLogic />
+          </UserProvider>
+        </FirebaseProvider>
       </>
     );
   }
 }
-App.contextType = ActivityContext;
