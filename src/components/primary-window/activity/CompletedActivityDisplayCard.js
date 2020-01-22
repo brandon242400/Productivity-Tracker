@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Icon from "@mdi/react";
+import { mdiTrashCan, mdiPlusBox } from "@mdi/js";
 import Card from "@material-ui/core/Card";
 import CardHeader from "./MuiCardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -7,76 +9,126 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import ActivityContext from "../../../context/ActivityContext";
+import AddActivityInstance from "../add-activity/AddActivityInstance";
 
 const useStyles = makeStyles(theme => ({
   card: {
     width: "11vw",
     backgroundColor: "#333",
     borderRadius: "5px",
-    margin: "10px"
+    margin: "10px",
+    border: "1px solid black",
+    borderColor: "#067",
+    boxShadow: "0px 0px 10px 0px #000"
   },
   avatar: {
-    backgroundColor: "#555",
-    color: "black",
+    fontFamily: "'Kulim Park', sans-serif",
+    backgroundColor: "#777",
+    color: "#057",
     fontWeight: 600
+    // fontSize: "155%"
   },
-  cardHeader: {},
-  action: {},
   title: {
-    color: "#bbb",
+    color: "#aaa",
     fontFamily: "'Kulim Park', sans-serif"
   },
   subheader: {
     color: "#888",
+    fontFamily: "'Kulim Park', sans-serif"
+    // marginTop: ".5vh"
+  },
+  typography: {
     fontFamily: "'Kulim Park', sans-serif",
-    marginTop: ".5vh"
+    color: "#888"
+  },
+  icons: {
+    color: "#089"
   }
 }));
 
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
+  const [showInstanceComponent, updateShowInstanceComponent] = React.useState(
+    false
+  );
+  const { removeCompletedActivity } = React.useContext(ActivityContext);
+
+  const showActivityInstance = () => {
+    updateShowInstanceComponent(!showInstanceComponent);
+  };
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        classes={{
-          root: classes.cardHeader,
-          title: classes.title,
-          subheader: classes.subheader
-        }}
-        avatar={
-          <Avatar
-            classes={{
-              root: classes.avatar
-            }}
+    <>
+      <Card className={classes.card}>
+        <CardHeader
+          classes={{
+            root: classes.cardHeader,
+            title: classes.title,
+            subheader: classes.subheader,
+            subheader2: classes.subheader
+          }}
+          avatar={
+            <Avatar
+              classes={{
+                root: classes.avatar
+              }}
+            >
+              {props.activity.rating}
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={props.activity.name}
+          subheader={props.activity.dateUsed}
+          subheader2={props.activity.timeSpentDoing}
+        />
+        <CardContent>
+          <Typography
+            variant="body1"
+            component="p"
+            className={classes.typography}
           >
-            {props.activity.rating}
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+            {props.activity.description}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton
+            aria-label="delete"
+            className={classes.icons}
+            onClick={() => removeCompletedActivity(props.activity)}
+          >
+            <Icon
+              path={mdiTrashCan}
+              title="Delete Activity"
+              size={1}
+              color="#089"
+            />
           </IconButton>
-        }
-        title={props.activity.name}
-        subheader={props.activity.dateUsed}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.activity.description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+          <IconButton
+            aria-label="reuse"
+            className={classes.icons}
+            onClick={() => showActivityInstance()}
+          >
+            <Icon
+              path={mdiPlusBox}
+              title="Reuse Activity"
+              size={1}
+              color="#089"
+            />
+          </IconButton>
+        </CardActions>
+      </Card>
+      {showInstanceComponent ? (
+        <AddActivityInstance
+          showActivityInstance={showActivityInstance}
+          activity={props.activity}
+        />
+      ) : null}
+    </>
   );
 }

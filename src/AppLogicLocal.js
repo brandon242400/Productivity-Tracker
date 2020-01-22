@@ -4,8 +4,9 @@ import { getActivityList, setActivityList } from "./ActivityListManager";
 import { getTodaysDate } from "./reused-functions/Functions";
 import { ActivityProvider } from "./context/ActivityContext";
 
-// Keeps track of all the activities completed by the user.
-export default class AppLogic extends React.Component {
+// Keeps track of all the activities completed by the user with localStorage.
+// This component is used if the user isn't signed in to an account. Otherwise AppLogicDatabase is used.
+export default class AppLogicLocal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

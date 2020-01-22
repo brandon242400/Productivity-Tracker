@@ -33,6 +33,9 @@ export const CustomInput = withStyles({
       color: "black",
       top: "5px"
     },
+    "& label": {
+      top: "5px"
+    },
     "& .MuiInput-underline:after": {
       borderBottomColor: "green"
     },

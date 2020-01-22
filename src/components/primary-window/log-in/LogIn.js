@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FirebaseContext from "../../../context/FirebaseContext";
+import fire from "../../firebase/Firebase";
 import {
   Container,
   Title,
@@ -9,8 +9,6 @@ import {
 } from "./LogInStyles";
 
 export default class LogIn extends Component {
-  static contextType = FirebaseContext;
-
   constructor() {
     super();
     this.state = {
@@ -24,14 +22,18 @@ export default class LogIn extends Component {
       try {
         e.preventDefault();
       } catch (error) {}
-      // console.log(this.state);
+      localStorage.setItem(
+        "productivity-tracker-instructions",
+        JSON.stringify({ goToHomePage: true })
+      );
 
       const { userEmail, userPassword } = this.state;
-      this.context
+      fire
         .auth()
         .signInWithEmailAndPassword(userEmail.trim(), userPassword.trim())
         .catch(error => {
           console.log(error.message);
+          localStorage.removeItem("productivity-tracker-instructions");
           alert("Invalid username or password");
         });
       this.setState({
@@ -46,30 +48,35 @@ export default class LogIn extends Component {
   render() {
     return (
       <Container>
-        <Title>Log In</Title>
-        <ColumnDisplay>
-          <CustomInput
-            variant="outlined"
-            label="E-mail"
-            value={this.state.userEmail}
-            onChange={e => this.setState({ userEmail: e.target.value })}
-            onKeyDown={this.handleEnter}
-          />
-          <CustomInput
-            variant="outlined"
-            label="Password"
-            value={this.state.userPassword}
-            onChange={e => this.setState({ userPassword: e.target.value })}
-            onKeyDown={this.handleEnter}
-          />
-          <CustomButton
-            variant="contained"
-            color="default"
-            onClick={this.handleEnter}
-          >
-            Log in
-          </CustomButton>
-        </ColumnDisplay>
+        <div onClick={() => this.props.removeSignUpListener()}>
+          <Title>Log In</Title>
+          <ColumnDisplay>
+            <CustomInput
+              variant="outlined"
+              label="E-mail"
+              origin="login"
+              value={this.state.userEmail}
+              onChange={e => this.setState({ userEmail: e.target.value })}
+              onKeyDown={this.handleEnter}
+            />
+            <CustomInput
+              variant="outlined"
+              label="Password"
+              origin="login"
+              type="password"
+              value={this.state.userPassword}
+              onChange={e => this.setState({ userPassword: e.target.value })}
+              onKeyDown={this.handleEnter}
+            />
+            <CustomButton
+              variant="contained"
+              color="default"
+              onClick={() => this.handleEnter({ keyCode: 13 })}
+            >
+              Log in
+            </CustomButton>
+          </ColumnDisplay>
+        </div>
       </Container>
     );
   }

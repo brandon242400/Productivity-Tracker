@@ -1,46 +1,91 @@
 import React from "react";
 import "./App.css";
-import AppLogic from "./AppLogic";
+import AppLogicLocal from "./AppLogicLocal";
+import AppLogicDatabase from "./AppLogicDatabase";
 import fire from "./components/firebase/Firebase";
-import { FirebaseProvider } from "./context/FirebaseContext";
 import { UserProvider } from "./context/UserContext";
 
-// Logic portion of App along with AppLogic.js. Handles some Firebase related tasks.
+// Takes care of user authentication and passes the user object, (if there is one), throughout the app via context.
 
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: null
+      user: null,
+      userID: null,
+      logicComponent: <></>
     };
     this.authListener = this.authListener.bind(this);
   }
 
   componentDidMount() {
+    // fire.auth().signOut();
     this.authListener();
   }
 
+  // Listens for changes in the user account and assigns the App's logic component accordingly.
   authListener() {
     fire.auth().onAuthStateChanged(user => {
-      // console.log(user);
       if (user) {
-        this.setState({ user });
-        // localStorage.setItem('user', user.uid);
+        this.setState({
+          user,
+          logicComponent: <AppLogicDatabase />
+        });
+        this.followSignInInstructions(user.uid);
       } else {
-        this.setState({ user: null });
-        // localStorage.removeItem('user');
+        this.setState({
+          user,
+          logicComponent: <AppLogicLocal />
+        });
       }
     });
   }
 
+  // Grabs and follows the instructions set in localStorage (if any)
+  followSignInInstructions = UID => {
+    let userName = null;
+    if (localStorage.getItem("productivity-tracker-instructions")) {
+      let instructions = JSON.parse(
+        localStorage.getItem("productivity-tracker-instructions")
+      );
+      localStorage.removeItem("productivity-tracker-instructions");
+
+      if (instructions.userName) {
+        fire.auth().currentUser.updateProfile({
+          displayName: instructions.userName
+        });
+        userName = instructions.userName;
+      }
+      if (instructions.goToHomePage) {
+        window.location.replace(window.location.href.replace("/sign-up", "/"));
+      }
+    }
+    this.generateUserDatabase(UID, userName);
+  };
+
+  // Creates folder for user in Firestore database if one doesn't exist
+  generateUserDatabase = (UID, userName) => {
+    let docRef = fire
+      .firestore()
+      .collection("users")
+      .doc(UID);
+    docRef.get().then(doc => {
+      if (!doc.exists) {
+        docRef.set({
+          name: userName,
+          email: this.state.user.email,
+          activities: []
+        });
+      }
+    });
+  };
+
   render() {
     return (
       <>
-        <FirebaseProvider value={fire}>
-          <UserProvider value={JSON.parse(JSON.stringify(this.state.user))}>
-            <AppLogic />
-          </UserProvider>
-        </FirebaseProvider>
+        <UserProvider value={JSON.parse(JSON.stringify(this.state.user))}>
+          {this.state.logicComponent}
+        </UserProvider>
       </>
     );
   }

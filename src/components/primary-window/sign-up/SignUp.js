@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import SignUpDisplay from "./SignUpDisplay";
 import LogIn from "../log-in/LogIn";
-// import UserContext from "../../../context/UserContext";
-import FirebaseContext from "../../../context/FirebaseContext";
+import firebase from "../../firebase/Firebase";
 
 export default class SignUp extends Component {
-  static contextType = FirebaseContext;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +15,11 @@ export default class SignUp extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleEnter);
+    // document.addEventListener("keydown", this.checkForEnterPress);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEnter);
+    document.removeEventListener("keydown", this.checkForEnterPress);
   }
 
   updateEmail = e => {
@@ -41,15 +38,37 @@ export default class SignUp extends Component {
     this.setState({ userName: e.target.value });
   };
 
-  // Creates the new user's account using the provided email and password
-  handleEnter = (e = "") => {
-    if (e.keyCode === 13) {
-      try {
-        e.preventDefault();
-      } catch (error) {}
+  setSignUpListener = () => {
+    document.addEventListener("keydown", this.checkForEnterPress);
+  };
 
+  removeSignUpListener = () => {
+    document.removeEventListener("keydown", this.checkForEnterPress);
+  };
+
+  checkForEnterPress = e => {
+    if (e.keyCode === 13) {
+      this.handleEnter(e);
+    }
+  };
+
+  // Creates the new user's account using the provided email and password
+  handleEnter = e => {
+    try {
+      e.preventDefault();
+    } catch (error) {
+      console.log("Prevent Default Failed");
+    }
+
+    let passwordsMatch =
+      this.state.userPassword === this.state.userPasswordRetype;
+    let nothingNull = this.state.userName !== "";
+    nothingNull = nothingNull && this.state.userPassword !== "";
+    nothingNull = nothingNull && this.state.userEmail !== "";
+
+    if (passwordsMatch && nothingNull) {
       const { userEmail, userPassword } = this.state;
-      this.context
+      firebase
         .auth()
         .createUserWithEmailAndPassword(userEmail.trim(), userPassword.trim())
         .catch(error => {
@@ -61,23 +80,31 @@ export default class SignUp extends Component {
             alert("That email is already in use.");
           }
         });
+      let name = this.state.userName.trim();
+      localStorage.setItem(
+        "productivity-tracker-instructions",
+        JSON.stringify({
+          userName: name,
+          goToHomePage: true
+        })
+      );
       this.setState({
         userEmail: "",
         userPassword: "",
         userPasswordRetype: "",
         userName: ""
       });
+    } else if (!nothingNull) {
+      alert("You must fill out all information to create an account");
+    } else if (!passwordsMatch) {
+      alert("Your passwords need to match");
     }
   };
 
   render() {
     return (
-      <div
-        style={{
-          display: "flex"
-        }}
-      >
-        <LogIn />
+      <div style={{ display: "flex" }}>
+        <LogIn removeSignUpListener={this.removeSignUpListener} />
         <SignUpDisplay
           userEmail={this.state.userEmail}
           userPassword={this.state.userPassword}
@@ -88,6 +115,7 @@ export default class SignUp extends Component {
           updatePasswordRetype={this.updatePasswordRetype}
           updateName={this.updateName}
           handleEnter={this.handleEnter}
+          setSignUpListener={this.setSignUpListener}
         />
       </div>
     );

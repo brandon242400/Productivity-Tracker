@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React from "react";
-import { ClickAwayListener, Button } from "@material-ui/core";
+import { ClickAwayListener } from "@material-ui/core";
 import {
   Container,
   InputContainer,

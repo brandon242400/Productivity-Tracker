@@ -14,7 +14,7 @@ export const styles = {
   /* Styles applied to the avatar element. */
   avatar: {
     flex: "0 0 auto",
-    transform: "scale(0.75)",
+    transform: "scale(0.85)",
     marginRight: 0,
     marginTop: 0
   },
@@ -33,10 +33,20 @@ export const styles = {
   },
   /* Styles applied to the title Typography element. */
   title: {
-    fontSize: "1vw"
+    // fontSize: "1vw"
+    fontSize: "115%"
   },
   /* Styles applied to the subheader Typography element. */
-  subheader: {}
+  subheader: {
+    marginLeft: "0",
+    marginTop: "10px",
+    textAlign: "left"
+  },
+  subheader2: {
+    marginLeft: "0",
+    textAlign: "left",
+    fontWeight: "600"
+  }
 };
 
 const CardHeader = React.forwardRef(function CardHeader(props, ref) {
@@ -48,6 +58,7 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
     component: Component = "div",
     disableTypography = false,
     subheader: subheaderProp,
+    subheader2: subheaderProp2,
     subheaderTypographyProps,
     title: titleProp,
     titleTypographyProps,
@@ -89,11 +100,45 @@ const CardHeader = React.forwardRef(function CardHeader(props, ref) {
     );
   }
 
+  let subheader2 = subheaderProp2;
+  if (
+    subheader2 != null &&
+    subheader2.type !== Typography &&
+    !disableTypography
+  ) {
+    subheader2 = (
+      <div style={{ display: "flex" }}>
+        <Typography
+          variant={avatar ? "body2" : "body1"}
+          className={classes.subheader2}
+          color="textSecondary"
+          component="span"
+          display="block"
+          {...subheaderTypographyProps}
+        >
+          {subheader2}
+        </Typography>
+        <Typography
+          variant={avatar ? "body2" : "body1"}
+          className={classes.subheader}
+          style={{ marginTop: "0", marginLeft: "5px" }}
+          color="textSecondary"
+          component="span"
+          display="block"
+          {...subheaderTypographyProps}
+        >
+          {`minutes`}
+        </Typography>
+      </div>
+    );
+  }
+
   return (
     <Component className={clsx(classes.root, className)} ref={ref} {...other}>
       <div className={classes.content}>
         {title}
         {subheader}
+        {subheader2}
       </div>
       <div
         style={{

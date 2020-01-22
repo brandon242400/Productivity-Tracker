@@ -25,7 +25,6 @@ export const getTodaysScore = list => {
 };
 
 // Returns a list of all activities done today.
-// Creates sepereate Activity objects for each time an activity was done.
 export const getTodaysActivities = list => {
   let date = getTodaysDate();
   let todaysActivities = [];

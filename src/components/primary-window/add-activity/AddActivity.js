@@ -5,9 +5,11 @@ import { getTodaysDate } from "../../../reused-functions/Functions";
 import { getValidActivityID } from "../../../ActivityListManager";
 import ActivityContext from "../../../context/ActivityContext";
 
-export default function AddActivity(props) {
+export default function AddActivity() {
   const [showDisplay, setShowDisplay] = React.useState(false);
-  const { addCompletedActivity } = React.useContext(ActivityContext);
+  const { addCompletedActivity, all_completed_activities } = React.useContext(
+    ActivityContext
+  );
 
   const handleClick = e => {
     e.preventDefault();
@@ -19,8 +21,9 @@ export default function AddActivity(props) {
   };
 
   const createActivity = (title, description, rating, timeSpent) => {
+    const ID = getValidActivityID(all_completed_activities);
     addCompletedActivity(
-      createActivityObject(title, description, rating, timeSpent)
+      createActivityObject(title, description, rating, timeSpent, ID)
     );
   };
 
@@ -46,9 +49,17 @@ export default function AddActivity(props) {
 }
 
 // Creates a new activity object
-export const createActivityObject = (title, description, rating, timeSpent) => {
-  if (timeSpent === "") timeSpent = 30;
+export const createActivityObject = (
+  title,
+  description,
+  rating,
+  timeSpent,
+  ID
+) => {
+  if (timeSpent === "") timeSpent = 0;
   if (rating === "") rating = 50;
+  if (title === "") title = "...";
+  if (description === "") description = "...";
   return {
     name: title,
     description: description,
@@ -56,6 +67,6 @@ export const createActivityObject = (title, description, rating, timeSpent) => {
     dateUsed: getTodaysDate(),
     timeUsed: new Date().getTime(),
     rating: rating,
-    ID: getValidActivityID()
+    ID: ID
   };
 };

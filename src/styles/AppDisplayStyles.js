@@ -4,12 +4,14 @@ export const Container = styled.div`
   text-align: center;
   margin-top: 2vh;
   border: 1px solid #333;
+  padding: 15px;
 `;
 
 export const H1 = styled.h1`
   text-decoration: underline;
   font-size: 1.7vw;
-  border: 0.2vw solid black;
+  border: 0.2vw solid #023;
+  color: #034;
   border-radius: 0.8vw;
   padding: 1vw;
   width: fit-content;
@@ -59,7 +61,7 @@ export const OffsetContainer = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-  color: #bbb;
+  color: #399;
   font-weight: 600;
   position: fixed;
   top: 2vh;
