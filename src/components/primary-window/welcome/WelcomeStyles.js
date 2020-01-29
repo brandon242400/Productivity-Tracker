@@ -2,23 +2,28 @@ import styled from "styled-components";
 import React from "react";
 import Activity from "./ActivityCardExample";
 import { getTodaysDate } from "../../../reused-functions/Functions";
+import { Button, withStyles } from "@material-ui/core";
 
 export const Container = styled.div`
   width: 80vw;
   height: fit-content;
-  margin: 2vh auto 15vh auto;
+  margin: 8vh auto 25vh auto;
   padding: 0vh 1vw;
   // background-color: #494949;
   // border: 2px solid #089;
   // border-radius: 0.5vw;
   // box-shadow: 4px 4px 7px 2px #111;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Header = styled.h2`
   text-decoration: underline;
   font-size: 2vw;
   // font-size: 175%;
-  // margin-bottom: 10vh;
+  margin-bottom: 10vh;
 `;
 
 export const MasonryContainer = styled.div`
@@ -144,3 +149,19 @@ export const ExampleActivity = (
     }}
   />
 );
+
+export const StyledButton = withStyles({
+  root: {
+    color: "#599",
+    width: "fit-content",
+    margin: "1vh auto 2vh auto",
+    backgroundColor: "#333",
+    fontFamily: "'Kulim Park', sans-serif",
+    fontWeight: "600",
+    transition: "all 0.25s",
+    "&:hover": {
+      backgroundColor: "#555",
+      color: "#3cc"
+    }
+  }
+})(Button);

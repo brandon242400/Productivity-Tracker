@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   text-align: center;
   margin-top: 2vh;
-  border: 1px solid #333;
+  // border: 1px solid #333;
   padding: 15px;
 `;
 
@@ -31,10 +31,10 @@ export const H1 = styled.h1`
 
 export const H1offset = styled.h1`
   // position: fixed;
-  color: black;
+  color: #034;
   text-decoration: underline;
   font-size: 1.2vw;
-  border: 0.1vw solid black;
+  border: 0.1vw solid #023;
   border-radius: 0.6vw;
   padding: 0.75vw;
   width: fit-content;
@@ -61,7 +61,7 @@ export const OffsetContainer = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-  color: #399;
+  color: #999;
   font-weight: 600;
   position: fixed;
   top: 2vh;

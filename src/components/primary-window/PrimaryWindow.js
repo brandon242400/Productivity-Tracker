@@ -1,67 +1,57 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrimaryWindowDisplay from "./PrimaryWindowDisplay";
 import HomePage from "./home/HomePage";
 import Welcome from "./welcome/Welcome";
-import Login from "./log-in/LogIn";
 import SignUp from "./sign-up/SignUp";
 import * as Routes from "../../constants/routes";
-import { ButtonContainer } from "../../styles/AppDisplayStyles";
 import UserContext from "../../context/UserContext";
-import fire from "../firebase/Firebase";
+import Menu from "../menu/NavBar";
 
 // Main display window. Handles routing between pages and other functions that require a broad scope.
 
-function PrimaryWindow() {
+export default function PrimaryWindow() {
+  const userContext = React.useContext(UserContext);
+
+  // Takes user to the welcome page if it's their first time visiting.
+  let URL = window.location.href;
+  if (
+    !URL.includes("/welcome") &&
+    !localStorage.getItem("pt-user-visited") &&
+    !userContext
+  ) {
+    URL =
+      URL.split("/")
+        .slice(0, -1)
+        .join("/") + "/welcome";
+    window.location.replace(URL);
+  }
+
   return (
     <Router>
-      <SignupButton />
+      <Menu />
       <Switch>
         <Route exact path={Routes.HOME}>
+          {/* <SignupButton /> */}
           <PrimaryWindowDisplay
-            pageComponent={<HomePage />}
+            pageComponent={HomePage}
+            menu={true}
             centerTitle={true}
           />
         </Route>
         <Route path={Routes.WELCOME}>
           <PrimaryWindowDisplay
-            pageComponent={<Welcome />}
+            pageComponent={Welcome}
             centerTitle={false}
+            dontShowTitle={
+              localStorage.getItem("pt-user-visited") ? null : "dont show title"
+            }
           />
-        </Route>
-        <Route path={Routes.LOGIN}>
-          <PrimaryWindowDisplay pageComponent={<Login />} centerTitle={false} />
         </Route>
         <Route path={Routes.SIGN_UP}>
-          <PrimaryWindowDisplay
-            pageComponent={<SignUp />}
-            centerTitle={false}
-          />
+          <PrimaryWindowDisplay pageComponent={SignUp} centerTitle={false} />
         </Route>
       </Switch>
     </Router>
-  );
-}
-
-export default PrimaryWindow;
-
-// Sign-up/Login button for the top right of the screen
-
-function SignupButton(props) {
-  const userContext = React.useContext(UserContext);
-  return (
-    <>
-      {userContext ? (
-        <ButtonContainer onClick={() => fire.auth().signOut()}>
-          <p>Log out</p>
-        </ButtonContainer>
-      ) : (
-        <Link to="sign-up">
-          <ButtonContainer>
-            <p>Sign up/Login</p>
-          </ButtonContainer>
-        </Link>
-      )}
-    </>
   );
 }

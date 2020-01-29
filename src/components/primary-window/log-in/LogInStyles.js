@@ -21,7 +21,12 @@ export const ColumnDisplay = styled.div`
 
 export const Title = styled.h2`
   text-decoration: underline;
-  margin-bottom: 5vh;
+  margin: 3vh auto 5vh auto;
+  color: #999;
+  padding: 0 10px;
+  border-left: 2px solid #089;
+  border-right: 2px solid #089;
+  width: fit-content;
 `;
 
 export const CustomInput = withStyles({
@@ -59,9 +64,11 @@ export const CustomButton = withStyles({
     margin: "4vh auto",
     backgroundColor: "#333",
     fontFamily: "'Kulim Park', sans-serif",
+    transition: "all 0.25s",
     fontWeight: "600",
     "&:hover": {
-      backgroundColor: "#555"
+      backgroundColor: "#555",
+      color: "#3cc"
     }
   }
 })(Button);

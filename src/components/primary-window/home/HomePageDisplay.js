@@ -4,12 +4,14 @@ import Masonry from "react-masonry-component";
 import styled from "styled-components";
 
 export default function HomePageDisplay(props) {
-  const [containerWidth, setContainerWidth] = React.useState(
-    getContainerWidth(props.activities.length)
+  const [activityContainerWidth, setActivityContainerWidth] = React.useState(
+    getActivityContainerWidth(props.activities.length)
   );
 
   const handleResize = () => {
-    setContainerWidth(getContainerWidth(props.activities.length));
+    setActivityContainerWidth(
+      getActivityContainerWidth(props.activities.length)
+    );
   };
 
   React.useEffect(() => {
@@ -21,63 +23,80 @@ export default function HomePageDisplay(props) {
   });
 
   const Container = styled.div`
-    width: ${containerWidth}vw;
-    background-color: #494949;
+    width: ${activityContainerWidth + 10}vw;
+    // border: 1px solid red;
+    margin: auto;
+  `;
+
+  const ActivityContainer = styled.div`
+    width: ${activityContainerWidth}vw;
     height: auto;
     margin: 10vh auto;
-    border: 0.15vw solid #333;
-    border-radius: 10px;
     padding: 0.5vh 1vw 2vh 1vw;
-    box-shadow: 3px 3px 5px 5px #222;
+    border-right: 3px solid #089;
+    border-left: 3px solid #089;
+    background-color: #444;
+    box-shadow: 0px 0px 12px 0px #222;
+    transition: max-width 0.25s;
+
+    .home-page-text {
+      color: #999;
+      width: 70%;
+      margin: 3vh auto;
+    }
   `;
 
   return (
     <Container>
-      {containerWidth !== getContainerWidth(props.activities.length) &&
-        handleResize()}
-      <div style={{ display: "flex" }}>
-        <Header style={{ marginLeft: `${containerWidth / 2 - 3.5}vw` }}>
-          Today
-        </Header>
-        <Score>Score: {props.score}</Score>
-      </div>
-      {props.activities.length > 0 ? (
-        <Masonry>{props.activities}</Masonry>
-      ) : (
-        <h3>
-          There's nothing to show for today.
-          <br /> <br />
-          Click the bottom right to add an activity and get a productivity score
-          for today!
-        </h3>
-      )}
+      <ActivityContainer>
+        {/* {localStorage.clear()} */}
+        {activityContainerWidth !==
+          getActivityContainerWidth(props.activities.length) && handleResize()}
+        <div style={{ display: "flex" }}>
+          <Header>Today</Header>
+          <Score>Score: {props.score}</Score>
+        </div>
+        {props.activities.length > 0 ? (
+          <Masonry options={masonryOptions}>{props.activities}</Masonry>
+        ) : (
+          <h3 className="home-page-text">
+            There's nothing to show for today.
+            <br /> <br />
+            Click the bottom right to add an activity and get a productivity
+            score for today!
+          </h3>
+        )}
+      </ActivityContainer>
     </Container>
   );
 }
 
 // Returns the container width in vw based on the number of activities
-const getContainerWidth = count => {
+const getActivityContainerWidth = count => {
   if (count > 6) count = 6;
-  if (count === 0) return 30;
-  let marginWidth = 100 / (document.documentElement.clientWidth / 41);
+  if (count < 3) return 30;
+  let marginWidth = 100 / (document.documentElement.clientWidth / 43);
   let activityWidth = 11;
   let total = marginWidth * count + activityWidth * count;
   // console.log(marginWidth);
   return total;
 };
 
+// const getContainerStyles = menuOpen => {
+//   return {
+//     width: menuOpen ? 60 : 90
+//   };
+// };
+
 const Score = styled.h3`
-  font-size: 1.25vw;
-  background-color: #606060;
+  color: #999;
   width: fit-content;
   height: fit-content;
-  padding: 0.4vh 1vw;
-  border: 0.05vw solid #333;
-  border-radius: 0.3vw;
-  border-right: none;
-  margin-right: -0.5vw;
+  padding: 0 10px;
+  // border-right: 2px solid #089;
+  // border-left: 2px solid #089;
+  margin-right: 0;
   margin-left: auto;
-  box-shadow: 3px 3px 3px 2px #222;
 
   @media (max-width: 1000px) {
     font-size: 75%;
@@ -86,21 +105,21 @@ const Score = styled.h3`
 `;
 
 const Header = styled.h3`
-  font-size: 1.5vw;
-  background-color: #606060;
+  font-size: 170%;
   width: fit-content;
   height: fit-content;
-  text-decoration: underline;
-  padding: 0.75vh 1.5vw;
-  border: 0.05vw solid #333;
-  border-radius: 0.3vw;
-  border-right: none;
-  margin-right: -0.5vw;
-  margin-left: auto;
-  box-shadow: 3px 3px 3px 2px #222;
+  color: #999;
+  padding: 0 10px;
+  border-right: 2px solid #089;
+  border-left: 2px solid #089;
 
   @media (max-width: 1000px) {
     font-size: 100%;
     border: 1px solid #333;
   }
 `;
+
+const masonryOptions = {
+  transitionDuration: 0.5,
+  columnWidth: 1
+};

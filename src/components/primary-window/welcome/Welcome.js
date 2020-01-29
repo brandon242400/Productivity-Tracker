@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   Header,
@@ -8,14 +9,19 @@ import {
   Introduction,
   ContentContainer,
   IntroText,
-  ExampleActivity
+  ExampleActivity,
+  StyledButton
 } from "./WelcomeStyles";
 
 export default class Welcome extends Component {
+  logUserVisited = () => {
+    localStorage.setItem("pt-user-visited", "true");
+  };
+
   render() {
     return (
       <Container>
-        <Header>Welcome to your Productivity Tracker</Header>
+        <Header>Welcome to Your Productivity Tracker</Header>
         <MasonryContainer>
           <Introduction>{IntroText}</Introduction>
           <div style={{ display: "flex" }}>
@@ -41,6 +47,24 @@ export default class Welcome extends Component {
               </ContentLeft>
               <ContentLeft>
                 <h3>Create Account</h3>
+                <p>
+                  Creating an account will allow you to access and change your
+                  productivity information from different devices because the
+                  data you enter will be linked to your account. This means you
+                  can log in on your phone and add things while you're away from
+                  the computer. You won't recieve any emails from us unless it's
+                  to reset a forgotten password. Click the button below to
+                  create one now.
+                </p>
+                <Link to="/sign-up">
+                  <StyledButton
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.logUserVisited()}
+                  >
+                    Sign Up Now
+                  </StyledButton>
+                </Link>
               </ContentLeft>
             </ContentContainer>
 
@@ -69,6 +93,26 @@ export default class Welcome extends Component {
               </ContentRight>
               <ContentRight>
                 <h3>Continue Without Account</h3>
+                <p>
+                  If you don't want to make an account yet you can still use the
+                  app from your preferred device. Keep in mind that the
+                  information you enter will only be saved on your browser so
+                  you won't be able to update anything from another device and
+                  could lose that information if you delete your browser's saved
+                  data. If you change your mind later all the activities you've
+                  made will be synced to your account so you won't lose any of
+                  the progress that's already been entered. Click the button
+                  below to use the app without an account.
+                </p>
+                <Link to="/">
+                  <StyledButton
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.logUserVisited()}
+                  >
+                    sign up later
+                  </StyledButton>
+                </Link>
               </ContentRight>
             </ContentContainer>
           </div>

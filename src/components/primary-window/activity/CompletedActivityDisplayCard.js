@@ -15,7 +15,7 @@ import AddActivityInstance from "../add-activity/AddActivityInstance";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    width: "11vw",
+    width: "12vw",
     backgroundColor: "#333",
     borderRadius: "5px",
     margin: "10px",
@@ -48,12 +48,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function RecipeReviewCard(props) {
+export default function CompletedActivityDisplayCard(props) {
   const classes = useStyles();
   const [showInstanceComponent, updateShowInstanceComponent] = React.useState(
     false
   );
   const { removeCompletedActivity } = React.useContext(ActivityContext);
+
+  const activityScore =
+    parseInt(props.activity.rating) *
+    (parseInt(props.activity.timeSpentDoing) / 60);
 
   const showActivityInstance = () => {
     updateShowInstanceComponent(!showInstanceComponent);
@@ -121,6 +125,22 @@ export default function RecipeReviewCard(props) {
               color="#089"
             />
           </IconButton>
+          <p
+            style={{
+              color: "#999",
+              fontFamily: "'Kulim Park'",
+              fontWeight: "600",
+              // borderLeft: "2px solid #089",
+              // borderRight: "2px solid #089",
+              backgroundColor: "#252525",
+              padding: "7px",
+              borderRadius: "5px",
+              width: "fit-content",
+              margin: "auto"
+            }}
+          >
+            {Math.round(activityScore)} Points
+          </p>
         </CardActions>
       </Card>
       {showInstanceComponent ? (

@@ -14,6 +14,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 const useStyles = makeStyles(theme => ({
   card: {
     width: "12vw",
+    height: "fit-content",
     backgroundColor: "#333",
     borderRadius: "5px",
     margin: "20px",
@@ -39,7 +40,10 @@ const useStyles = makeStyles(theme => ({
   },
   typography: {
     fontFamily: "'Kulim Park', sans-serif",
-    color: "#888"
+    color: "#888",
+    // borderLeft: "1px solid #399",
+    // borderRight: "1px solid #399",
+    padding: "5%"
   },
   icons: {
     color: "#089"
@@ -48,6 +52,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
+  const activityScore =
+    parseInt(props.activity.rating) *
+    (parseInt(props.activity.timeSpentDoing) / 60);
 
   return (
     <>
@@ -103,6 +110,17 @@ export default function RecipeReviewCard(props) {
               color="#089"
             />
           </IconButton>
+          <p
+            style={{
+              color: "#0ab",
+              fontFamily: "'Kulim Park'",
+              fontWeight: "600",
+              // borderBottom: "2px solid #089",
+              width: "fit-content"
+            }}
+          >
+            {activityScore} Points
+          </p>
         </CardActions>
       </Card>
     </>

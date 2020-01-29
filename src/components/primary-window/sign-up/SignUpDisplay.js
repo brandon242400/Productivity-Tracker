@@ -8,13 +8,6 @@ import {
 } from "./SignUpStyles";
 
 export default function SignUpDisplay(props) {
-  const checkKeyCode = e => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      props.handleEnter(e);
-    }
-  };
-
   return (
     <Container>
       <div onClick={() => props.setSignUpListener()}>
