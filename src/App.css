@@ -1,17 +1,13 @@
 body {
-  background: #555;
+  background: rgba(0, 0, 0, 0.6);
   font-family: "Kulim Park", sans-serif;
   margin-top: 5vh;
-}
-
-.test {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  /* width: 100%; */
-  /* display: flex; */
-  /* justify-content: space-between; */
+  background-image: url("./images/background-image-3.jpg");
+  background-blend-mode: darken;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 .test-item {
@@ -19,7 +15,7 @@ body {
   border: 2px solid green;
   background-color: #333;
   font-family: "Kulim Park", sans-serif;
-  color: #999;
+  /* color: #999; */
   font-size: 150%;
   width: 25%;
 }

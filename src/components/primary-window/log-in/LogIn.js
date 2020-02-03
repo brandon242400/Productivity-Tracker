@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import fire from "../../firebase/Firebase";
 import {
+  OutterContainer,
   Container,
   Title,
   CustomButton,
@@ -47,9 +48,10 @@ export default class LogIn extends Component {
 
   render() {
     return (
+      // <OutterContainer>
       <Container>
+        <Title>Log In</Title>
         <div onClick={() => this.props.removeSignUpListener()}>
-          <Title>Log In</Title>
           <ColumnDisplay>
             <CustomInput
               variant="outlined"
@@ -78,6 +80,7 @@ export default class LogIn extends Component {
           </ColumnDisplay>
         </div>
       </Container>
+      // </OutterContainer>
     );
   }
 }

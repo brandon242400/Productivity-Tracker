@@ -33,9 +33,9 @@ export default function HomePageDisplay(props) {
     height: auto;
     margin: 10vh auto;
     padding: 0.5vh 1vw 2vh 1vw;
-    border-right: 3px solid #089;
-    border-left: 3px solid #089;
-    background-color: #444;
+    border-right: 2px solid #089;
+    border-left: 2px solid #089;
+    background-color: rgba(60, 60, 60, 0.75);
     box-shadow: 0px 0px 12px 0px #222;
     transition: max-width 0.25s;
 

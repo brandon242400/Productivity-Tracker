@@ -12,6 +12,22 @@ export const getTodaysDate = (today = new Date()) => {
   return mm + "/" + dd + "/" + yyyy;
 };
 
+/**
+ * Parses a formatted date and returns an object with the three date values
+ *
+ * @param {String} stringDate
+ * @returns {Object} Date values {month, day, year}
+ */
+export const parseFormattedDate = stringDate => {
+  let dateArray = {
+    month: parseInt(stringDate.substring(0, 2)) - 1,
+    day: parseInt(stringDate.substring(3, 5)),
+    year: parseInt(stringDate.substring(6))
+  };
+  // dateArray.push(parseInt("54"));
+  return dateArray;
+};
+
 // Returns the productivity score for the day.
 export const getTodaysScore = list => {
   list = list.sort((a, b) => b.timeUsed - a.timeUsed);

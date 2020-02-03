@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
-  Header,
   ContentLeft,
   ContentRight,
   MasonryContainer,
@@ -12,6 +11,7 @@ import {
   ExampleActivity,
   StyledButton
 } from "./WelcomeStyles";
+import { Header } from "../../../styles/CommonStyles";
 
 export default class Welcome extends Component {
   logUserVisited = () => {

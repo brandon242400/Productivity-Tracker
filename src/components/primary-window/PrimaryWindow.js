@@ -7,6 +7,7 @@ import SignUp from "./sign-up/SignUp";
 import * as Routes from "../../constants/routes";
 import UserContext from "../../context/UserContext";
 import Menu from "../menu/NavBar";
+import History from "./history/History";
 
 // Main display window. Handles routing between pages and other functions that require a broad scope.
 
@@ -33,11 +34,7 @@ export default function PrimaryWindow() {
       <Switch>
         <Route exact path={Routes.HOME}>
           {/* <SignupButton /> */}
-          <PrimaryWindowDisplay
-            pageComponent={HomePage}
-            menu={true}
-            centerTitle={true}
-          />
+          <PrimaryWindowDisplay pageComponent={HomePage} centerTitle={true} />
         </Route>
         <Route path={Routes.WELCOME}>
           <PrimaryWindowDisplay
@@ -47,6 +44,9 @@ export default function PrimaryWindow() {
               localStorage.getItem("pt-user-visited") ? null : "dont show title"
             }
           />
+        </Route>
+        <Route path={Routes.HISTORY}>
+          <PrimaryWindowDisplay pageComponent={History} centerTitle={false} />
         </Route>
         <Route path={Routes.SIGN_UP}>
           <PrimaryWindowDisplay pageComponent={SignUp} centerTitle={false} />

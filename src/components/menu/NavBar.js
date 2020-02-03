@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NavBarDisplay from "./NavBarDisplay";
+import * as Routes from "../../constants/routes";
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class NavBar extends Component {
     this.state = {
       urlIndex: this.getUrlIndex
     };
-    this.urls = ["/", "/history", "/welcome", "/sign-up"];
+    this.urls = [Routes.HOME, Routes.HISTORY, Routes.WELCOME, Routes.SIGN_UP];
   }
 
   componentDidMount() {

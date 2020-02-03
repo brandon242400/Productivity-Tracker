@@ -1,5 +1,4 @@
 import React from "react";
-import ActivityDisplay from "./ActivityDisplay";
 import CompletedActivityDisplayCard from "./CompletedActivityDisplayCard";
 import ActivityContext from "../../../context/ActivityContext";
 
@@ -10,18 +9,11 @@ export default function Activity(props) {
 
   return (
     <>
-      {props.completedActivity ? (
-        <CompletedActivityDisplayCard
-          activity={props.activity}
-          removeActivity={removeCompletedActivity}
-          addInstanceToActivity={addInstanceToActivity}
-        />
-      ) : (
-        <ActivityDisplay
-          activity={props.activity}
-          removeActivity={removeCompletedActivity}
-        />
-      )}
+      <CompletedActivityDisplayCard
+        activity={props.activity}
+        removeActivity={removeCompletedActivity}
+        addInstanceToActivity={addInstanceToActivity}
+      />
     </>
   );
 }
@@ -30,7 +22,7 @@ const sampleActivity = {
   name: "First Activity",
   description: "The first thing I did!",
   timeSpentDoing: minutes,
-  dateUsed: "Formatted Date",
+  dateUsed: "Formatted Date mm/dd/yyyy",
   timeUsed: new Date().getTime(),
   rating: num,
   ID: "activity-" + num

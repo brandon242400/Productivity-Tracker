@@ -7,7 +7,8 @@ import {
   getTitleInput,
   getDescriptionInput,
   getNumberInputs,
-  StyledButton
+  StyledButton,
+  StyledInput
 } from "./activityDisplayStyles";
 
 export default class AddActivityDisplay extends React.Component {
@@ -49,9 +50,14 @@ export default class AddActivityDisplay extends React.Component {
         <ClickAwayListener onClickAway={this.props.handleClickAway}>
           <InputContainer>
             {getTitleInput(
-              this.state.titleInput,
-              e => this.setState({ titleInput: e.target.value }),
-              e => (e.keyCode === 13 ? this.handleEnter() : null)
+              <StyledInput
+                autoFocus={true}
+                id="component-filled-entry-title"
+                autoComplete="false"
+                value={this.state.titleInput}
+                onChange={e => this.setState({ titleInput: e.target.value })}
+                onKeyDown={e => (e.keyCode === 13 ? this.handleEnter() : null)}
+              />
             )}
             {getDescriptionInput(
               this.state.descriptionInput,

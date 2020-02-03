@@ -21,11 +21,18 @@ export const useStyles = makeStyles({
     fontWeight: "600",
     zIndex: "1",
     fontSize: "100%",
+    transition: "all 0.5s",
     "&.Mui-selected": {
       color: "#ccc",
       "& .MuiTab-wrapper": {
         transition: "all .5s"
+      },
+      "&:hover": {
+        color: "#ccc"
       }
+    },
+    "&:hover": {
+      color: "#3cc"
     }
   },
   tabs: {
@@ -43,12 +50,19 @@ export const useStyles = makeStyles({
     fontFamily: "'Kulim Park', sans-serif",
     fontWeight: "600",
     zIndex: "1",
+    transition: "all 0.5s",
     fontSize: "100%",
     "&.Mui-selected": {
       color: "#ccc",
       "& .MuiTab-wrapper": {
         transition: "all .5s"
+      },
+      "&:hover": {
+        color: "#ccc"
       }
+    },
+    "&:hover": {
+      color: "#3cc"
     }
   }
 });

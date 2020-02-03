@@ -65,7 +65,7 @@ const StyledLabel = withStyles({
   }
 })(InputLabel);
 
-const StyledInput = withStyles({
+export const StyledInput = withStyles({
   root: {
     color: "#888",
     backgroundColor: "#252525",
@@ -89,17 +89,10 @@ const StyledInput = withStyles({
   }
 })(FilledInput);
 
-export const getTitleInput = (givenValue, doOnChange, doOnKeyDown = null) => (
+export const getTitleInput = input => (
   <FormControl variant="filled">
     <StyledLabel htmlFor="component-filled-entry-title">Title</StyledLabel>
-    <StyledInput
-      autoFocus={true}
-      id="component-filled-entry-title"
-      autoComplete="false"
-      value={givenValue}
-      onChange={doOnChange}
-      onKeyDown={doOnKeyDown || doOnKeyDown}
-    />
+    {input}
   </FormControl>
 );
 

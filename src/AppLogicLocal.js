@@ -66,7 +66,7 @@ export default class AppLogicLocal extends React.Component {
   render() {
     return (
       <>
-        {/* {console.log("In AppLogic: ", this.state.all_completed_activities)} */}
+        {console.log("In AppLogic: ", this.state.all_completed_activities)}
         <ActivityProvider value={this.state}>
           <AppDisplay />
         </ActivityProvider>

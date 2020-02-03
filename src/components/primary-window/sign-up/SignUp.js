@@ -103,7 +103,13 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          // border: "1px solid white",
+          margin: "10vh auto"
+        }}
+      >
         <LogIn removeSignUpListener={this.removeSignUpListener} />
         <SignUpDisplay
           userEmail={this.state.userEmail}

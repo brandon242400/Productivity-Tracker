@@ -21,14 +21,23 @@ export const Container = styled.div`
 
 export const Header = styled.h2`
   text-decoration: underline;
-  font-size: 2vw;
-  // font-size: 175%;
+  border-left: 2px solid #089;
+  border-right: 2px solid #089;
+  width: fit-content;
+  padding: 5px 15px;
+  background-color: rgba(50, 50, 50, 0.55);
+  color: #389;
+  font-size: 1.5vw;
+  font-weight: 400;
+  margin: auto;
   margin-bottom: 10vh;
 `;
 
 export const MasonryContainer = styled.div`
   border-left: 2px solid #399;
   border-right: 2px solid #399;
+  padding: 1px 0;
+  background-color: rgba(50, 50, 50, 0.55);
   width: 70vw;
   margin: auto;
   color: #999;
