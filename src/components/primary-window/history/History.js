@@ -93,6 +93,7 @@ export default class History extends Component {
 
     let startTime = this.getTimeOfDate(startDate);
     let endTime = this.getTimeOfDate(endDate);
+    let difference = (endTime - startTime) / (24 * 3600 * 1000);
 
     // Creates data array and enters each day within the date range
     let data = [];
@@ -115,7 +116,15 @@ export default class History extends Component {
       }
     }
 
+    if (difference > 7) data = this.shortenActivityData(data);
+
     return data;
+  };
+
+  // If the time frame is a year, shows data for each month instead of each day.
+  // Does this for anything longer than a week.
+  shortenActivityData = data => {
+    data = JSON.parse(JSON.stringify(data));
   };
 
   render() {

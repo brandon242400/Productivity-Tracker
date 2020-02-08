@@ -10,45 +10,9 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { cardStyles } from "./SampleCardStyles";
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    width: "12vw",
-    height: "fit-content",
-    backgroundColor: "#333",
-    borderRadius: "5px",
-    margin: "20px",
-    border: "1px solid black",
-    borderColor: "#067",
-    boxShadow: "0px 0px 10px 0px #000"
-  },
-  avatar: {
-    fontFamily: "'Kulim Park', sans-serif",
-    backgroundColor: "#777",
-    color: "#057",
-    fontWeight: 600
-    // fontSize: "155%"
-  },
-  title: {
-    color: "#aaa",
-    fontFamily: "'Kulim Park', sans-serif"
-  },
-  subheader: {
-    color: "#888",
-    fontFamily: "'Kulim Park', sans-serif"
-    // marginTop: ".5vh"
-  },
-  typography: {
-    fontFamily: "'Kulim Park', sans-serif",
-    color: "#888",
-    // borderLeft: "1px solid #399",
-    // borderRight: "1px solid #399",
-    padding: "5%"
-  },
-  icons: {
-    color: "#089"
-  }
-}));
+const useStyles = makeStyles(() => cardStyles);
 
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
@@ -58,7 +22,13 @@ export default function RecipeReviewCard(props) {
 
   return (
     <>
-      <Card className={classes.card}>
+      <Card
+        className={classes.card}
+        style={{
+          height: "fit-content",
+          float: "left"
+        }}
+      >
         <CardHeader
           classes={{
             root: classes.cardHeader,
@@ -93,34 +63,26 @@ export default function RecipeReviewCard(props) {
             {props.activity.description}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="delete" className={classes.icons}>
+        <CardActions disableSpacing className={classes.cardActions}>
+          <IconButton aria-label="delete" className={classes.iconButton}>
             <Icon
+              className={classes.icons}
               path={mdiTrashCan}
               title="Delete Activity"
               size={1}
               color="#089"
             />
           </IconButton>
-          <IconButton aria-label="reuse" className={classes.icons}>
+          <IconButton aria-label="reuse" className={classes.iconButton}>
             <Icon
+              className={classes.icons}
               path={mdiPlusBox}
               title="Reuse Activity"
               size={1}
               color="#089"
             />
           </IconButton>
-          <p
-            style={{
-              color: "#0ab",
-              fontFamily: "'Kulim Park'",
-              fontWeight: "600",
-              // borderBottom: "2px solid #089",
-              width: "fit-content"
-            }}
-          >
-            {activityScore} Points
-          </p>
+          <p className={classes.score}>{activityScore} Points</p>
         </CardActions>
       </Card>
     </>

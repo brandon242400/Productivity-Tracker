@@ -8,14 +8,14 @@ export const Container = styled.div`
   width: 80vw;
   height: fit-content;
   margin: 8vh auto 25vh auto;
-  padding: 0vh 1vw;
-  // background-color: #494949;
-  // border: 2px solid #089;
-  // border-radius: 0.5vw;
-  // box-shadow: 4px 4px 7px 2px #111;
+  // padding: 0vh 1vw;
 
   a {
     text-decoration: none;
+  }
+
+  @media (max-width: 700px) {
+    width: 95vw;
   }
 `;
 
@@ -41,6 +41,10 @@ export const MasonryContainer = styled.div`
   width: 70vw;
   margin: auto;
   color: #999;
+
+  @media (max-width: 700px) {
+    width: 95%;
+  }
 `;
 
 export const Introduction = styled.div`
@@ -65,12 +69,42 @@ export const Introduction = styled.div`
     width: 80%;
     margin: 2vh auto;
   }
+
+  @media (max-width: 700px) {
+    width: 90%;
+  }
+`;
+
+export const IntroContentContainer = styled.div`
+  p {
+    padding: 10px;
+    width: 90%;
+  }
+`;
+
+export const FlexContainer = styled.div`
+  display: flex;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: fit-content;
+`;
+
+export const ContentContainerRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 3vw 0 auto;
+
+  @media (max-width: 700px) {
+    margin: 0;
+  }
 `;
 
 export const ContentLeft = styled.div`
@@ -81,6 +115,11 @@ export const ContentLeft = styled.div`
   width: 30vw;
   margin: 2vh auto 2vh 3vw;
   box-shadow: 3px 3px 10px 0px #222;
+
+  @media (max-width: 700px) {
+    width: 90%;
+    margin: 2vh auto;
+  }
 
   h3 {
     width: fit-content;
@@ -104,6 +143,11 @@ export const ContentRight = styled.div`
   width: 30vw;
   margin: 2vh 0;
   box-shadow: 3px 3px 10px 0px #222;
+
+  @media (max-width: 700px) {
+    width: 90%;
+    margin: 2vh auto;
+  }
 
   h3 {
     width: fit-content;
@@ -156,6 +200,7 @@ export const ExampleActivity = (
       rating: 100,
       ID: "activity-NA"
     }}
+    className="example-activity"
   />
 );
 

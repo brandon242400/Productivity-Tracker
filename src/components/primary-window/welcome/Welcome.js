@@ -9,7 +9,10 @@ import {
   ContentContainer,
   IntroText,
   ExampleActivity,
-  StyledButton
+  StyledButton,
+  IntroContentContainer,
+  FlexContainer,
+  ContentContainerRight
 } from "./WelcomeStyles";
 import { Header } from "../../../styles/CommonStyles";
 
@@ -24,13 +27,13 @@ export default class Welcome extends Component {
         <Header>Welcome to Your Productivity Tracker</Header>
         <MasonryContainer>
           <Introduction>{IntroText}</Introduction>
-          <div style={{ display: "flex" }}>
+          <FlexContainer>
             <ContentContainer>
               <ContentLeft>
                 <h3>Activities</h3>
-                <div style={{ display: "flex" }}>
+                <IntroContentContainer>
                   {ExampleActivity}
-                  <p style={{ padding: "10px", width: "40%" }}>
+                  <p>
                     When you enter a task you've done, it's displayed with an
                     activity card like the one to the left.
                     <br />
@@ -43,7 +46,7 @@ export default class Welcome extends Component {
                     if it's something you regularly do or delete it if it was
                     entered by mistake.
                   </p>
-                </div>
+                </IntroContentContainer>
               </ContentLeft>
               <ContentLeft>
                 <h3>Create Account</h3>
@@ -68,7 +71,7 @@ export default class Welcome extends Component {
               </ContentLeft>
             </ContentContainer>
 
-            <ContentContainer style={{ margin: "0 3vw 0 auto" }}>
+            <ContentContainerRight>
               <ContentRight>
                 <h3>Scores</h3>
                 <p>
@@ -114,8 +117,8 @@ export default class Welcome extends Component {
                   </StyledButton>
                 </Link>
               </ContentRight>
-            </ContentContainer>
-          </div>
+            </ContentContainerRight>
+          </FlexContainer>
         </MasonryContainer>
       </Container>
     );

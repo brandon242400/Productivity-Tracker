@@ -1,3 +1,8 @@
+@viewport {
+  width: device-width;
+  zoom: 1;
+}
+
 body {
   background: rgba(0, 0, 0, 0.6);
   font-family: "Kulim Park", sans-serif;
@@ -8,14 +13,38 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  overflow-x: hidden;
+  /* position: relative; */
 }
 
 .test-item {
   padding: 5px;
-  border: 2px solid green;
+  border: 2px solid red;
   background-color: #333;
   font-family: "Kulim Park", sans-serif;
   /* color: #999; */
   font-size: 150%;
   width: 25%;
+}
+
+#site-footer {
+  z-index: 0;
+  width: 110vw;
+  height: 10vh;
+  background-color: #222;
+  margin: auto auto 0 -5vw;
+  /* text-align: center; */
+}
+
+#site-footer a {
+  text-decoration: none;
+  color: #089;
+}
+
+#site-footer p {
+  color: #999;
+  height: fit-content;
+  width: fit-content;
+  margin: auto;
+  padding-top: 4vh;
 }

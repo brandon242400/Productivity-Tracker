@@ -86,6 +86,12 @@ export default class App extends React.Component {
         <UserProvider value={JSON.parse(JSON.stringify(this.state.user))}>
           {this.state.logicComponent}
         </UserProvider>
+        {/* <footer id="site-footer">
+          <p>
+            To see the source code for this site, visit the github page
+            <a href="#"> here</a>
+          </p>
+        </footer> */}
       </>
     );
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, ActivityContainer, Score } from "./HistoryStyles";
+import { ActivityContainer, Score } from "./HistoryStyles";
 import { Header as H2 } from "../../../styles/CommonStyles";
 import ActivityCard from "../activity/ActivityDisplayCard";
 import Masonry from "react-masonry-component";
@@ -8,7 +8,7 @@ import TimeFrameMenu from "./TimeFrameMenu";
 
 export default function HistoryDisplay(props) {
   const [startDate, updateStartDate] = React.useState(
-    props.getDateValueBeforeToday(3)
+    props.getDateValueBeforeToday(7)
   );
   const [dateLength, updateDateLength] = React.useState("Week");
 
@@ -46,7 +46,7 @@ export default function HistoryDisplay(props) {
   };
 
   return (
-    <Container>
+    <>
       <H2>Your Productivity History</H2>
       <ActivityContainer>
         <div style={{ display: "flex" }}>
@@ -55,35 +55,17 @@ export default function HistoryDisplay(props) {
             updateDateLength={changeDateRange}
           />
           {/* <Header>Hey</Header> */}
-          <Score>{`Score: ${totalScore}`}</Score>
+          <Score>{`Score: ${totalScore.toFixed(0)}`}</Score>
         </div>
         <LineChart data={props.getActivityDataFromDateRange(startDate)} />
         <h2>Activities</h2>
-        <Masonry>{activities}</Masonry>
+        <Masonry options={masonryOptions}>{activities}</Masonry>
       </ActivityContainer>
-    </Container>
+    </>
   );
 }
 
-// const data = [
-//   {
-//     day: 1,
-//     score: 100
-//   },
-//   {
-//     day: 2,
-//     score: 200
-//   },
-//   {
-//     day: 10,
-//     score: 0
-//   },
-//   {
-//     day: 4,
-//     score: 400
-//   },
-//   {
-//     day: 5,
-//     score: 150
-//   }
-// ];
+const masonryOptions = {
+  transitionDelay: 0,
+  stagger: 25
+};

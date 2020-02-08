@@ -25,7 +25,7 @@ export default class AppLogicLocal extends React.Component {
 
   addCompletedActivity = activity => {
     let list = this.state.all_completed_activities;
-    list.unshift(activity);
+    list.push(activity);
     setActivityList(list);
     this.setState({ all_completed_activities: list });
   };
@@ -66,7 +66,7 @@ export default class AppLogicLocal extends React.Component {
   render() {
     return (
       <>
-        {console.log("In AppLogic: ", this.state.all_completed_activities)}
+        {/* {console.log("In AppLogic: ", this.state.all_completed_activities)} */}
         <ActivityProvider value={this.state}>
           <AppDisplay />
         </ActivityProvider>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SignUpDisplay from "./SignUpDisplay";
 import LogIn from "../log-in/LogIn";
 import firebase from "../../firebase/Firebase";
+import { PageContainer } from "./SignUpStyles";
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -103,13 +104,7 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          // border: "1px solid white",
-          margin: "10vh auto"
-        }}
-      >
+      <PageContainer>
         <LogIn removeSignUpListener={this.removeSignUpListener} />
         <SignUpDisplay
           userEmail={this.state.userEmail}
@@ -123,7 +118,7 @@ export default class SignUp extends Component {
           handleEnter={this.handleEnter}
           setSignUpListener={this.setSignUpListener}
         />
-      </div>
+      </PageContainer>
     );
   }
 }

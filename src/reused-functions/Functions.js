@@ -30,6 +30,7 @@ export const parseFormattedDate = stringDate => {
 
 // Returns the productivity score for the day.
 export const getTodaysScore = list => {
+  list = JSON.parse(JSON.stringify(list));
   list = list.sort((a, b) => b.timeUsed - a.timeUsed);
   let [date, score] = [getTodaysDate(), 0];
   for (let activity of list) {

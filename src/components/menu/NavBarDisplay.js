@@ -8,6 +8,7 @@ export default function NavBarDisplay(props) {
   const [value, setValue] = React.useState(props.startingIndex);
 
   const handleChange = (event, newValue) => {
+    event.preventDefault();
     setValue(newValue);
     // console.log(newValue);
     props.navigateToURL(newValue);
@@ -23,8 +24,7 @@ export default function NavBarDisplay(props) {
             indicatorColor="primary"
             textColor="primary"
             className={classes.tabs}
-            // TabIndicatorProps={{}}
-            // centered
+            variant="standard"
           >
             <Tab label="Home" className={classes.tab} />
             <Tab label="History" className={classes.tab} />

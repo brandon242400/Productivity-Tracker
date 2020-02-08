@@ -1,41 +1,52 @@
 import { withStyles, TextField, Button } from "@material-ui/core";
 import styled from "styled-components";
 
-export const OutterContainer = styled.div``;
-
 export const Container = styled.div`
   border-left: 2px solid #089;
   border-right: 2px solid #089;
-  // border-radius: 1vw;
-  // padding-top: 3vh;
   background-color: rgba(68, 68, 68, 0.75);
   height: fit-content;
-  width: 30vw;
+  width: 35vw;
   margin: auto 5vw auto auto;
-  // margin-top: 15vh;
   box-shadow: 2px 2px 10px 0px #222;
+
+  @media (max-width: 1100px) {
+    width: 45vw;
+  }
+
+  @media (max-width: 600px) {
+    width: 80%;
+    margin: 10vh auto;
+  }
 `;
 
 export const ColumnDisplay = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20vw;
+  width: 65%;
   margin: auto;
+
+  @media (max-width: 1100px) {
+    width: 80%;
+  }
 `;
 
 export const Title = styled.h2`
   position: relative;
   bottom: 8vh;
   background-color: rgba(50, 50, 50, 0.55);
-  // text-decoration: underline;
   margin: 0 auto 4vh auto;
   color: #999;
   padding: 5px 15px;
   border-left: 2px solid #089;
   border-right: 2px solid #089;
   width: fit-content;
-  font-size: 1.5vw;
+  font-size: 200%;
   font-weight: 400;
+
+  @media (max-width: 1100px) {
+    font-size: 125%;
+  }
 `;
 
 export const CustomInput = withStyles({
@@ -63,6 +74,9 @@ export const CustomInput = withStyles({
     },
     marginBottom: "4vh",
     backgroundColor: "#555"
+    // "@media (max-width: 1100px)": {
+    //   width: "80%"
+    // }
   }
 })(TextField);
 

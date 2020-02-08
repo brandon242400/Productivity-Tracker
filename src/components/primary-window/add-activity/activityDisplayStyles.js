@@ -1,5 +1,3 @@
-//This file is used for the styles involved in the AddActivityDisplay.js component
-
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import {
@@ -9,6 +7,8 @@ import {
   FilledInput,
   Button
 } from "@material-ui/core";
+
+//This file is used for the styles involved in the AddActivityDisplay.js component
 
 const darkenContainer = keyframes`
 from {
@@ -32,7 +32,7 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 1;
+  z-index: 6;
   top: 0;
   left: 0;
   background-color: rgba(40, 40, 40, 0);
@@ -46,12 +46,34 @@ export const InputContainer = styled.div`
   align-items: center;
   width: 30vw;
   margin: 30vh auto;
-  padding: 50px;
+  padding: 50px 0;
   border: 2px solid #089;
   border-radius: 15px;
   background-color: #333;
   box-shadow: 5px 5px 3px 2px #111;
   animation: ${darkenInputContainer} 0.25s linear forwards;
+
+  .description-styled-input {
+    width: 70%;
+    margin-top: 5vh;
+  }
+
+  @media (max-width: 1200px) {
+    width: 50vw;
+  }
+
+  @media (max-width: 700px) {
+    margin-top: 15vh;
+    width: 75vw;
+  }
+
+  @media (max-width: 400px) {
+    width: 90vw;
+
+    .description-styled-input {
+      width: 90%;
+    }
+  }
 `;
 
 // Styled inputs from Material-UI
@@ -101,7 +123,7 @@ export const getDescriptionInput = (
   doOnChange,
   doOnKeyDown = null
 ) => (
-  <FormControl variant="filled" style={{ width: "50%", marginTop: "5vh" }}>
+  <FormControl variant="filled" className="description-styled-input">
     <StyledLabel htmlFor="component-filled-entry-description">
       Description
     </StyledLabel>
@@ -117,6 +139,30 @@ export const getDescriptionInput = (
   </FormControl>
 );
 
+const NumberInputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+
+  .num-input-item {
+    width: 150px;
+    margin: 5vh 1vw;
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+
+    .item-1 {
+      margin: 5vh auto;
+    }
+
+    .item-2 {
+      margin: 0 auto 5vh auto;
+    }
+  }
+`;
+
 export const getNumberInputs = (
   givenValue,
   doOnChange,
@@ -124,17 +170,8 @@ export const getNumberInputs = (
   givenValue2,
   doOnChange2
 ) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between"
-    }}
-  >
-    <FormControl
-      variant="filled"
-      style={{ width: "150px", margin: "5vh 25% 5vh 0" }}
-    >
+  <NumberInputContainer>
+    <FormControl variant="filled" className="num-input-item item-1">
       <StyledLabel htmlFor="component-filled-entry-rating">Rating</StyledLabel>
       <StyledInput
         type="number"
@@ -146,10 +183,7 @@ export const getNumberInputs = (
         onKeyDown={doOnKeyDown || doOnKeyDown}
       />
     </FormControl>
-    <FormControl
-      variant="filled"
-      style={{ width: "150px", margin: "5vh 0 5vh auto" }}
-    >
+    <FormControl variant="filled" className="num-input-item item-2">
       <StyledLabel htmlFor="component-filled-entry-time">Time</StyledLabel>
       <StyledInput
         type="number"
@@ -161,7 +195,7 @@ export const getNumberInputs = (
         onKeyDown={doOnKeyDown || doOnKeyDown}
       />
     </FormControl>
-  </div>
+  </NumberInputContainer>
 );
 
 export const StyledButton = withStyles({

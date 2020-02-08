@@ -8,58 +8,16 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import ActivityContext from "../../../context/ActivityContext";
+import { cardStyles } from "./DisplayCardStyles";
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    width: "9vw",
-    backgroundColor: "#333",
-    borderRadius: "5px",
-    margin: "10px",
-    border: "1px solid black",
-    borderColor: "#067",
-    boxShadow: "0px 0px 10px 0px #000"
-  },
-  avatar: {
-    fontFamily: "'Kulim Park', sans-serif",
-    backgroundColor: "#777",
-    color: "#057",
-    fontWeight: 600
-    // fontSize: "155%"
-  },
-  title: {
-    color: "#aaa",
-    fontFamily: "'Kulim Park', sans-serif"
-  },
-  subheader: {
-    color: "#888",
-    fontFamily: "'Kulim Park', sans-serif"
-    // marginTop: ".5vh"
-  },
-  typography: {
-    fontFamily: "'Kulim Park', sans-serif",
-    color: "#888",
-    fontSize: "85%"
-  },
-  icons: {
-    color: "#089"
-  }
-}));
+const useStyles = makeStyles(() => cardStyles);
 
 export default function ActivityDisplayCard(props) {
   const classes = useStyles();
-  const [showInstanceComponent, updateShowInstanceComponent] = React.useState(
-    false
-  );
-  const { removeCompletedActivity } = React.useContext(ActivityContext);
 
   const activityScore =
     parseInt(props.activity.rating) *
     (parseInt(props.activity.timeSpentDoing) / 60);
-
-  const showActivityInstance = () => {
-    updateShowInstanceComponent(!showInstanceComponent);
-  };
 
   return (
     <>
@@ -99,23 +57,7 @@ export default function ActivityDisplayCard(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <p
-            style={{
-              color: "#999",
-              fontFamily: "'Kulim Park'",
-              fontWeight: "600",
-              // borderLeft: "2px solid #089",
-              // borderRight: "2px solid #089",
-              backgroundColor: "#252525",
-              padding: "5px",
-              borderRadius: "5px",
-              width: "fit-content",
-              margin: "auto",
-              fontSize: "74%"
-            }}
-          >
-            {Math.round(activityScore)} Points
-          </p>
+          <p className={classes.score}>{Math.round(activityScore)} Points</p>
         </CardActions>
       </Card>
     </>

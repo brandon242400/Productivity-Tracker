@@ -6,9 +6,13 @@ export const Header = styled.h2`
   margin: auto;
   margin-bottom: 10vh;
   padding: 5px 10px;
-  font-size: 1.5vw;
+  font-size: 190%;
   border-left: 2px solid #089;
   border-right: 2px solid #089;
   color: #389;
   font-weight: 400;
+
+  @media (max-width: 700px) {
+    font-size: 150%;
+  }
 `;
