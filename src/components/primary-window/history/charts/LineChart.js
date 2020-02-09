@@ -12,13 +12,6 @@ import styled from "styled-components";
 export default class Chart extends Component {
   render() {
     let data = this.props.data;
-    if (data.length === 8)
-      data = data.map(item => {
-        return {
-          date: item.date.substring(0, 5),
-          score: item.score
-        };
-      });
 
     return (
       <Container>
@@ -26,7 +19,7 @@ export default class Chart extends Component {
           <LineChart data={data} margin={{ left: 0, right: 5 }}>
             <Line type="monotone" dataKey="score" stroke="#3cc" />
             <CartesianGrid stroke="#999" />
-            <XAxis dataKey="date" stroke="#999" />
+            <XAxis dataKey="date" stroke="#999" domain={[5, "auto"]} />
             <YAxis stroke="#999" />
           </LineChart>
         </ResponsiveContainer>

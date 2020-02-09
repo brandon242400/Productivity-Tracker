@@ -5,7 +5,13 @@ import {
   parseFormattedDate,
   getTodaysDate
 } from "../../../reused-functions/Functions";
-import { testActivities } from "./HistoryStyles";
+import {
+  testActivities,
+  monthList,
+  formatWeekData,
+  formatMonthData,
+  formatYearData
+} from "./HistoryFunctions";
 
 export default class History extends Component {
   static contextType = ActivityContext;
@@ -13,23 +19,23 @@ export default class History extends Component {
   constructor() {
     super();
     this.state = {
-      activityList: [],
+      activityList: testActivities,
       contextsActivityList: []
     };
   }
 
-  componentDidMount() {
-    this.setState({
-      activityList: JSON.parse(
-        JSON.stringify(this.context.all_completed_activities)
-      )
-    });
-    console.log(this.context.all_completed_activities);
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     activityList: JSON.parse(
+  //       JSON.stringify(this.context.all_completed_activities)
+  //     )
+  //   });
+  //   console.log(this.context.all_completed_activities);
+  // }
 
-  componentDidUpdate() {
-    if (this.compareWithContext()) this.updateActivityList();
-  }
+  // componentDidUpdate() {
+  //   if (this.compareWithContext()) this.updateActivityList();
+  // }
 
   updateActivityList = () => {
     let contextList = JSON.parse(
@@ -93,7 +99,6 @@ export default class History extends Component {
 
     let startTime = this.getTimeOfDate(startDate);
     let endTime = this.getTimeOfDate(endDate);
-    let difference = (endTime - startTime) / (24 * 3600 * 1000);
 
     // Creates data array and enters each day within the date range
     let data = [];
@@ -116,7 +121,7 @@ export default class History extends Component {
       }
     }
 
-    if (difference > 7) data = this.shortenActivityData(data);
+    data = this.shortenActivityData(data);
 
     return data;
   };
@@ -125,6 +130,19 @@ export default class History extends Component {
   // Does this for anything longer than a week.
   shortenActivityData = data => {
     data = JSON.parse(JSON.stringify(data));
+    let length = data.length;
+    let shortData = [];
+    if (length <= 12) {
+      // Formats data up to 12 days
+      shortData = formatWeekData(data);
+    } else if (length <= 31) {
+      // Formats data of up to one month
+      shortData = formatMonthData(data);
+    } else {
+      // Formats data up to a year
+      shortData = formatYearData(data);
+    }
+    return shortData;
   };
 
   render() {
