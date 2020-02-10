@@ -66,7 +66,7 @@ export const useStyles = makeStyles({
     height: "fit-content"
   },
   rightTab: {
-    marginRight: "5vw",
+    marginRight: "0",
     marginLeft: "auto",
     color: "#999",
     height: "fit-content",
@@ -99,8 +99,16 @@ export const useStyles = makeStyles({
       }
     },
     "@media (max-width: 525px)": {
-      minWidth: 50,
+      minWidth: 100,
       fontSize: "60%"
     }
+  },
+  link: {
+    textDecoration: "none"
+  },
+  rightLink: {
+    textDecoration: "none",
+    width: "fit-content",
+    margin: "auto 5vw auto auto"
   }
 });

@@ -15,10 +15,12 @@ import {
   ContentContainerRight
 } from "./WelcomeStyles";
 import { Header } from "../../../styles/CommonStyles";
+import UserVisitedContext from "../../../context/UserVisitedContext";
 
 export default class Welcome extends Component {
   logUserVisited = () => {
     localStorage.setItem("pt-user-visited", "true");
+    this.context(true);
   };
 
   render() {
@@ -124,3 +126,4 @@ export default class Welcome extends Component {
     );
   }
 }
+Welcome.contextType = UserVisitedContext;

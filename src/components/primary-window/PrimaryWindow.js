@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import PrimaryWindowDisplay from "./PrimaryWindowDisplay";
 import HomePage from "./home/HomePage";
 import Welcome from "./welcome/Welcome";
 import SignUp from "./sign-up/SignUp";
@@ -33,23 +32,16 @@ export default function PrimaryWindow() {
       <Menu />
       <Switch>
         <Route exact path={Routes.HOME}>
-          {/* <SignupButton /> */}
-          <PrimaryWindowDisplay pageComponent={HomePage} centerTitle={true} />
+          <HomePage />
         </Route>
         <Route path={Routes.WELCOME}>
-          <PrimaryWindowDisplay
-            pageComponent={Welcome}
-            centerTitle={false}
-            dontShowTitle={
-              localStorage.getItem("pt-user-visited") ? null : "dont show title"
-            }
-          />
+          <Welcome />
         </Route>
         <Route path={Routes.HISTORY}>
-          <PrimaryWindowDisplay pageComponent={History} centerTitle={false} />
+          <History />
         </Route>
         <Route path={Routes.SIGN_UP}>
-          <PrimaryWindowDisplay pageComponent={SignUp} centerTitle={false} />
+          <SignUp />
         </Route>
       </Switch>
     </Router>

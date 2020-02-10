@@ -4,6 +4,7 @@ import AppLogicLocal from "./AppLogicLocal";
 import AppLogicDatabase from "./AppLogicDatabase";
 import fire from "./components/firebase/Firebase";
 import { UserProvider } from "./context/UserContext";
+import { UserVisitedProvider } from "./context/UserVisitedContext";
 
 // Takes care of user authentication and passes the user object, (if there is one), throughout the app via context.
 
@@ -12,14 +13,16 @@ export default class App extends React.Component {
     super();
     this.state = {
       user: null,
-      userID: null,
+      userVisited: false,
       logicComponent: <></>
     };
     this.authListener = this.authListener.bind(this);
   }
 
   componentDidMount() {
-    // fire.auth().signOut();
+    // localStorage.clear();
+    if (localStorage.getItem("pt-user-visited"))
+      this.setState(() => ({ userVisited: true }));
     this.authListener();
   }
 
@@ -80,11 +83,21 @@ export default class App extends React.Component {
     });
   };
 
+  setOrGetUserVisited = (userVisited = null) => {
+    if (userVisited === null) return this.state.userVisited;
+    else {
+      this.setState(() => ({ userVisited: userVisited }));
+      return userVisited;
+    }
+  };
+
   render() {
     return (
       <>
         <UserProvider value={JSON.parse(JSON.stringify(this.state.user))}>
-          {this.state.logicComponent}
+          <UserVisitedProvider value={this.setOrGetUserVisited}>
+            {this.state.logicComponent}
+          </UserVisitedProvider>
         </UserProvider>
         {/* <footer id="site-footer">
           <p>

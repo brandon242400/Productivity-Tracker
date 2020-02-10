@@ -19,7 +19,7 @@ export default class Chart extends Component {
           <LineChart data={data} margin={{ left: 0, right: 5 }}>
             <Line type="monotone" dataKey="score" stroke="#3cc" />
             <CartesianGrid stroke="#999" />
-            <XAxis dataKey="date" stroke="#999" domain={[5, "auto"]} />
+            <XAxis dataKey="date" stroke="#999" />
             <YAxis stroke="#999" />
           </LineChart>
         </ResponsiveContainer>
@@ -29,7 +29,7 @@ export default class Chart extends Component {
 }
 
 const Container = styled.div`
-  background-color: #333;
+  background-color: rgba(51, 51, 51, 0.85);
   padding: 10px 10px 0 0;
   border: 2px solid #089;
   border-radius: 5px;

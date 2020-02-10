@@ -6,9 +6,11 @@ export default class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      urlIndex: this.getUrlIndex
+      urlIndex: this.getUrlIndex,
+      showNavBar: false
     };
     this.urls = [Routes.HOME, Routes.HISTORY, Routes.WELCOME, Routes.SIGN_UP];
+    this.urlIntervalChecker = null;
   }
 
   componentDidMount() {
@@ -16,9 +18,8 @@ export default class NavBar extends Component {
     URL = URL.split("/");
     URL = "/" + URL[URL.length - 1];
     this.setState({ urlIndex: this.urls.indexOf(URL) });
+    this.urlIntervalChecker = setInterval(this.startCheckingForUrlChanges, 200);
   }
-
-  componentWillUnmount() {}
 
   componentDidUpdate() {
     // let URL = window.location.href;
@@ -36,20 +37,32 @@ export default class NavBar extends Component {
     return this.urls.indexOf(URL);
   };
 
-  navigateToURL = index => {
+  getUrl = () => {
     let URL = window.location.href;
-    URL =
-      URL.split("/")
-        .slice(0, -1)
-        .join("/") + this.urls[index];
-    window.location.replace(URL);
+    URL = URL.split("/");
+    URL = "/" + URL[URL.length - 1];
+    return URL;
+  };
+
+  startCheckingForUrlChanges = () => {
+    if (
+      localStorage.getItem("pt-user-visited") ||
+      this.getUrl() !== "/welcome"
+    ) {
+      clearInterval(this.urlIntervalChecker);
+      this.setState(() => ({ showNavBar: true }));
+      return;
+    }
+  };
+
+  navigateToURL = index => {
+    this.setState(() => ({ urlIndex: index }));
   };
 
   render() {
     return (
       <>
-        {localStorage.getItem("pt-user-visited") ||
-        this.urls[this.state.urlIndex] !== "/welcome" ? (
+        {this.state.showNavBar ? (
           <NavBarDisplay
             navigateToURL={this.navigateToURL}
             startingIndex={this.state.urlIndex}
