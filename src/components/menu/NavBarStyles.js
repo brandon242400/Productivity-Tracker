@@ -26,9 +26,9 @@ export const useStyles = makeStyles({
     }
   },
   tab: {
-    color: "#999",
+    color: "#999 !important",
     fontFamily: "'Kulim Park', sans-serif",
-    fontWeight: "600",
+    fontWeight: "600 !important",
     zIndex: "1",
     fontSize: "100%",
     height: "fit-content",
@@ -97,10 +97,6 @@ export const useStyles = makeStyles({
         width: "17vw",
         height: "fit-content"
       }
-    },
-    "@media (max-width: 525px)": {
-      minWidth: 100,
-      fontSize: "60%"
     }
   },
   link: {

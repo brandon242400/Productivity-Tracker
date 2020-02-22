@@ -3,18 +3,25 @@ import { Container, useStyles } from "./NavBarStyles";
 import { Paper, Tabs, Tab } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import * as Routes from "../../constants/routes";
+import UserContext from "../../context/UserContext";
+import fire from "../firebase/Firebase";
 
 export default function NavBarDisplay(props) {
   const classes = useStyles();
+
+  const User = React.useContext(UserContext);
 
   const [value, setValue] = React.useState(props.startingIndex);
   const urls = [Routes.HOME, Routes.HISTORY, Routes.WELCOME, Routes.SIGN_UP];
 
   const handleChange = (event, newValue) => {
     // event.preventDefault();
+    if (newValue === 3 && User) {
+      fire.auth().signOut();
+      return;
+    }
     setValue(newValue);
-    console.log(newValue);
-    props.navigateToURL(newValue);
+    // props.navigateToURL(newValue);
   };
 
   // Keeps the indicator on the correct tab when the user navigates their site history.
@@ -59,11 +66,14 @@ export default function NavBarDisplay(props) {
               <Tab label="About" className={classes.tab} />
             </Link>
             <Link
-              to="/sign-up"
+              to={User ? urls[value] : "/sign-up"}
               onClick={e => handleChange(e, 3)}
               className={classes.rightLink}
             >
-              <Tab label="Log in/Sign up" className={classes.rightTab} />
+              <Tab
+                label={User ? "Log Out" : "Log in/Sign up"}
+                className={classes.rightTab}
+              />
             </Link>
           </Tabs>
         </Paper>
