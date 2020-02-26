@@ -27,23 +27,23 @@ export const useStyles = makeStyles({
   },
   tab: {
     color: "#999 !important",
-    fontFamily: "'Kulim Park', sans-serif",
+    fontFamily: "'Kulim Park', sans-serif !important",
     fontWeight: "600 !important",
     zIndex: "1",
     fontSize: "100%",
     height: "fit-content",
     transition: "all 0.5s",
     "&.Mui-selected": {
-      color: "#ccc",
+      color: "#ccc !important",
       "& .MuiTab-wrapper": {
         transition: "all .5s"
       },
       "&:hover": {
-        color: "#ccc"
+        color: "#ccc !important"
       }
     },
     "&:hover": {
-      color: "#3cc"
+      color: "#3cc !important"
     },
     "@media (max-width: 850px)": {
       minWidth: 130
@@ -68,24 +68,24 @@ export const useStyles = makeStyles({
   rightTab: {
     marginRight: "0",
     marginLeft: "auto",
-    color: "#999",
+    color: "#999 !important",
     height: "fit-content",
-    fontFamily: "'Kulim Park', sans-serif",
-    fontWeight: "600",
+    fontFamily: "'Kulim Park', sans-serif !important",
+    fontWeight: "600 !important",
     zIndex: "1",
     transition: "all 0.5s",
     fontSize: "100%",
     "&.Mui-selected": {
-      color: "#ccc",
+      color: "#ccc !important",
       "& .MuiTab-wrapper": {
         transition: "all .5s"
       },
       "&:hover": {
-        color: "#ccc"
+        color: "#ccc !important"
       }
     },
     "&:hover": {
-      color: "#3cc"
+      color: "#3cc !important"
     },
     "@media (max-width: 850px)": {
       minWidth: 130
