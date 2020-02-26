@@ -38,7 +38,7 @@ export default class AppLogicDatabase extends React.Component {
     docRef.get().then(snap => {
       try {
         this.setState(() => ({
-          all_completed_activities: snap.data().activities,
+          all_completed_activities: snap.data().activities.reverse(),
           listUpdated: true
         }));
       } catch (error) {
@@ -53,6 +53,7 @@ export default class AppLogicDatabase extends React.Component {
   // Updates the activity list in the user's database to the list provided.
   updateDatabase = list => {
     list = JSON.parse(JSON.stringify(list));
+    list.reverse();
     const UID = this.context.uid;
     let docRef = fire
       .firestore()
@@ -65,7 +66,7 @@ export default class AppLogicDatabase extends React.Component {
 
   addCompletedActivity = activity => {
     let list = this.state.all_completed_activities;
-    list.unshift(activity);
+    list.push(activity);
     this.updateDatabase(list);
     this.setState({ all_completed_activities: list });
   };

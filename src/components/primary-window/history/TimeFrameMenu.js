@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, MenuItem, makeStyles, withStyles } from "@material-ui/core";
+import { Menu, MenuItem, withStyles } from "@material-ui/core";
 import { Header } from "./HistoryStyles";
 
 export default function TimeFrameMenu(props) {

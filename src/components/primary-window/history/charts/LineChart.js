@@ -11,12 +11,10 @@ import styled from "styled-components";
 
 export default class Chart extends Component {
   render() {
-    let data = this.props.data;
-
     return (
       <Container>
         <ResponsiveContainer aspect={2} width="100%">
-          <LineChart data={data} margin={{ left: 0, right: 5 }}>
+          <LineChart data={this.props.data} margin={{ left: 0, right: 5 }}>
             <Line type="monotone" dataKey="score" stroke="#3cc" />
             <CartesianGrid stroke="#999" />
             <XAxis dataKey="date" stroke="#999" />

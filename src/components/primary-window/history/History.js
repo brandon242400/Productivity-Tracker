@@ -1,41 +1,41 @@
 import React, { Component } from "react";
 import HistoryDisplay from "./HistoryDisplay";
 import ActivityContext from "../../../context/ActivityContext";
+import UserContext from "../../../context/UserContext";
 import {
   parseFormattedDate,
   getTodaysDate
 } from "../../../reused-functions/Functions";
 import {
   testActivities,
-  monthList,
   formatWeekData,
   formatMonthData,
   formatYearData
 } from "./HistoryFunctions";
 
-export default class History extends Component {
+class History extends Component {
   static contextType = ActivityContext;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       activityList: testActivities,
       contextsActivityList: []
     };
   }
 
-  // componentDidMount() {
-  //   this.setState({
-  //     activityList: JSON.parse(
-  //       JSON.stringify(this.context.all_completed_activities)
-  //     )
-  //   });
-  //   console.log(this.context.all_completed_activities);
-  // }
+  componentDidMount() {
+    this.setState({
+      activityList: JSON.parse(
+        JSON.stringify(this.context.all_completed_activities)
+      )
+    });
+    // console.log(this.context.all_completed_activities);
+  }
 
-  // componentDidUpdate() {
-  //   if (this.compareWithContext()) this.updateActivityList();
-  // }
+  componentDidUpdate() {
+    if (this.compareWithContext()) this.updateActivityList();
+  }
 
   updateActivityList = () => {
     let contextList = JSON.parse(
@@ -155,6 +155,20 @@ export default class History extends Component {
           getDateValueBeforeToday={this.getDateValueBeforeToday}
           getActivityDataFromDateRange={this.getActivityDataFromDateRange}
         />
+      </>
+    );
+  }
+}
+
+//
+// Wrapper Component used to give History access to UserContext
+export default class HistoryWrapper extends Component {
+  static contextType = UserContext;
+
+  render() {
+    return (
+      <>
+        <History />
       </>
     );
   }

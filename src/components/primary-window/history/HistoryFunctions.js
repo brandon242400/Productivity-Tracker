@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import { getTodaysDate } from "../../../reused-functions/Functions";
 
 export const formatWeekData = data => {
